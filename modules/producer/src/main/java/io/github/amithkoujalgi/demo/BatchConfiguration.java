@@ -13,9 +13,13 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,9 +34,15 @@ public class BatchConfiguration {
     @Value("${producer.source_directory}")
     private String sourceDirectory;
 
+    @Bean(value = "datasource-batch")
+    @ConfigurationProperties(prefix = "spring.datasource-batch")
+    public DataSource dataSource() {
+        return new DriverManagerDataSource();
+    }
+
     @Bean
-    public ResourcelessTransactionManager transactionManager() {
-        return new ResourcelessTransactionManager();
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
@@ -63,7 +73,7 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(JobRepository jobRepository, ResourcelessTransactionManager transactionManager,
+    public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager,
                       ItemReader<File> reader, FileItemProcessor processor, ItemWriter<File> writer) {
         return new StepBuilder("step1", jobRepository)
                 .<File, File>chunk(3, transactionManager)

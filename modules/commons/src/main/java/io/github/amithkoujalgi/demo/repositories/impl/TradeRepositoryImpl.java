@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
 
 public class TradeRepositoryImpl implements TradeRepository {
 
-    @Value("${infrastructure.redis.keys.portfolio}")
-    private String userPortfolioKeyname;
     @Autowired
     private KafkaTemplate<String, Object> kafkaProducer;
 

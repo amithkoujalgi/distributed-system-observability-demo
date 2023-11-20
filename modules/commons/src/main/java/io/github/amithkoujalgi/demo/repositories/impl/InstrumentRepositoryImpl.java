@@ -9,12 +9,6 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class InstrumentRepositoryImpl implements InstrumentRepository {
-
-    @Value("${infrastructure.redis.keys.stocks}")
-    private String stocksKeyname;
-    @Value("${infrastructure.redis.keys.indices}")
-    private String indicesKeyname;
-
     @Override
     public List<Instrument> fetchAllStockInstruments() throws Exception {
         List<Instrument> instrumentList = new ArrayList<>();

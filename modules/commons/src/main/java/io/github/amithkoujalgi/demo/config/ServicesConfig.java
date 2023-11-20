@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Configuration
 public class ServicesConfig {
-
     @Bean
     public PortfolioService portfolioService() {
         return new PortfolioService();
     }
-
 }

@@ -1,3 +1,29 @@
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:32432}/demo
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  datasource-batch:
+    url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 producer:
   source_directory: "/Users/amithkoujalgi/Desktop/"
   target_directory: "/Users/amithkoujalgi/Desktop/test/"
+infrastructure:
+  kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
+  topic: stock-transactions
