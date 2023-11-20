@@ -1,8 +1,10 @@
 package io.github.amithkoujalgi.demo;
 
 import io.github.amithkoujalgi.demo.producer.FileItemProcessor;
-import io.github.amithkoujalgi.demo.producer.FileNamePrintingItemWriter;
 import io.github.amithkoujalgi.demo.producer.JobCompletionNotificationListener;
+import io.github.amithkoujalgi.demo.producer.KafkaItemWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -11,11 +13,16 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.IteratorItemReader;
-import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.EnumerablePropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.MutablePropertySources;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -25,8 +32,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Configuration
 public class BatchConfiguration {
@@ -38,6 +47,24 @@ public class BatchConfiguration {
     @ConfigurationProperties(prefix = "spring.datasource-batch")
     public DataSource dataSource() {
         return new DriverManagerDataSource();
+    }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BatchConfiguration.class);
+
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        final Environment env = event.getApplicationContext().getEnvironment();
+        LOGGER.info("====== Environment and configuration ======");
+        LOGGER.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
+        final MutablePropertySources sources = ((AbstractEnvironment) env).getPropertySources();
+        StreamSupport.stream(sources.spliterator(), false)
+                .filter(ps -> ps instanceof EnumerablePropertySource)
+                .map(ps -> ((EnumerablePropertySource) ps).getPropertyNames())
+                .flatMap(Arrays::stream)
+                .distinct()
+                .filter(prop -> !(prop.contains("credentials") || prop.contains("password")))
+                .forEach(prop -> LOGGER.info("{}: {}", prop, env.getProperty(prop)));
+        LOGGER.info("===========================================");
     }
 
     @Bean
@@ -61,7 +88,9 @@ public class BatchConfiguration {
 
     @Bean
     public ItemWriter<File> writer() {
-        return new FileNamePrintingItemWriter();
+
+//        return new FileNamePrintingItemWriter();
+        return new KafkaItemWriter();
     }
 
     @Bean

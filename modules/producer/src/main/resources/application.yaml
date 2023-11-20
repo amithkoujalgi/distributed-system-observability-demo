@@ -25,5 +25,5 @@ producer:
   source_directory: "/Users/amithkoujalgi/Desktop/"
   target_directory: "/Users/amithkoujalgi/Desktop/test/"
 infrastructure:
-  kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
-  topic: stock-transactions
+  kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:32092}
+  topic: documents
