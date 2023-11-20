@@ -9,6 +9,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +23,12 @@ import java.util.stream.Collectors;
 
 @Configuration
 public class FileProcessingBatchConfiguration {
+
+    @Value("${producer.source_directory}")
+    private String sourceDirectory;
+
+
+
     @Bean
     public ResourcelessTransactionManager dataSourceTransactionManager() {
         return new ResourcelessTransactionManager();
@@ -29,7 +36,7 @@ public class FileProcessingBatchConfiguration {
 
     @Bean
     public ItemReader<File> reader() throws IOException {
-        List<File> files = Files.walk(Paths.get("/Users/amithkoujalgi/Documents/GitHub/distributed-processing-demo/modules/producer/src/main/resources"))
+        List<File> files = Files.walk(Paths.get(sourceDirectory))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());
