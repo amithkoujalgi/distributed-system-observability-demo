@@ -1,3 +1,0 @@
-Demo App
-
-Using Spring Boot: ${spring-boot.version}

@@ -1,8 +1,6 @@
 package io.github.amithkoujalgi.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.amithkoujalgi.demo.DemoApplication;
-import io.github.amithkoujalgi.demo.DemoApplication;
 import io.github.amithkoujalgi.demo.entities.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = {DemoApplication.class})
+@SpringBootTest(classes = {io.github.amithkoujalgi.demo.DemoApp.class})
 @AutoConfigureMockMvc
 class UserControllerTest {
 
