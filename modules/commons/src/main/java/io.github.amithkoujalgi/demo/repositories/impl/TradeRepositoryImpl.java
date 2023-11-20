@@ -13,7 +13,6 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.errors.RecordDeserializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
@@ -23,8 +22,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class TradeRepositoryImpl implements TradeRepository {
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @Value("${infrastructure.redis.keys.portfolio}")
     private String userPortfolioKeyname;
@@ -76,15 +73,7 @@ public class TradeRepositoryImpl implements TradeRepository {
 
     @Override
     public List<PortfolioItem> getPortfolioOfUser(String userId) throws JsonProcessingException {
-        Set<String> stockKeys = redisTemplate.keys(userPortfolioKeyname + "*");
         List<PortfolioItem> portfolioItemList = new ArrayList<>();
-        for (String key : stockKeys) {
-            List<String> portfolioItems = redisTemplate.opsForList().range(key, 0, 1);
-            for (String item : portfolioItems) {
-                PortfolioItem portfolioItem = PortfolioItem.fromJSONString(item);
-                portfolioItemList.add(portfolioItem);
-            }
-        }
         return portfolioItemList;
     }
 
