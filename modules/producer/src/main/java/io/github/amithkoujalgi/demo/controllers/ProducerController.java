@@ -35,46 +35,5 @@ public class ProducerController {
             throw new RuntimeException(e);
         }
     }
-
-    @Operation(summary = "Get stock instrument by name")
-    @GetMapping("/stock/{name}")
-    public Instrument stockByName(@PathVariable String name) throws Exception {
-        return instrumentRepository.fetchStockInstrumentByName(name);
-    }
-
-    @Operation(summary = "Find stock instrument by keyword")
-    @GetMapping("/stock/find/{keyword}")
-    public List<Instrument> findStockByKeyword(@PathVariable String keyword) throws Exception {
-        return instrumentRepository.findStockInstrumentsByKeyword(keyword);
-    }
-
-    @Operation(summary = "Get all index instruments")
-    @GetMapping("/indices")
-    public List<Instrument> indices() {
-        try {
-            return instrumentRepository.fetchAllIndexInstruments();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Operation(summary = "Get index instrument by name")
-    @GetMapping("/index/{name}")
-    public Instrument indexByName(@PathVariable String name) throws Exception {
-        return instrumentRepository.fetchIndexInstrumentByName(name);
-    }
-
-    @Operation(summary = "Update an index instrument")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", content = {
-                    @Content(schema = @Schema(implementation = Instrument.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
-    })
-    @PutMapping("/index/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public Instrument updateIndex(
-            @PathVariable("name") final String name, @RequestBody final Instrument updatedIndex) {
-        return updatedIndex;
-    }
 }
 
