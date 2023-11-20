@@ -1,5 +1,6 @@
-package io.github.amithkoujalgi.demo;
+package io.github.amithkoujalgi.demo.producer;
 
+import io.github.amithkoujalgi.demo.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;

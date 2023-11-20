@@ -1,4 +1,4 @@
-package io.github.amithkoujalgi.demo;
+package io.github.amithkoujalgi.demo.producer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
