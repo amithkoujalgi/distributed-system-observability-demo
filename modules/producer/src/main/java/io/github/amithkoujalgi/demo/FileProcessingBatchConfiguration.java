@@ -8,11 +8,10 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.IteratorItemReader;
+import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,8 +23,8 @@ import java.util.stream.Collectors;
 @Configuration
 public class FileProcessingBatchConfiguration {
     @Bean
-    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
+    public ResourcelessTransactionManager dataSourceTransactionManager() {
+        return new ResourcelessTransactionManager();
     }
 
     @Bean
@@ -56,7 +55,7 @@ public class FileProcessingBatchConfiguration {
     }
 
     @Bean
-    public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager,
+    public Step step1(JobRepository jobRepository, ResourcelessTransactionManager transactionManager,
                       ItemReader<File> reader, FileItemProcessor processor, ItemWriter<File> writer) {
         return new StepBuilder("step1", jobRepository)
                 .<File, File>chunk(3, transactionManager)
