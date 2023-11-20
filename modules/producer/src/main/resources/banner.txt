@@ -1,3 +1,3 @@
-Demo App
+Demo Producer
 
 Using Spring Boot: ${spring-boot.version}
