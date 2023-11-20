@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = {io.github.amithkoujalgi.demo.DemoApp.class})
 @AutoConfigureMockMvc
-class UserControllerTest {
+class UserWorkerControllerTest {
 
     @Autowired
     private MockMvc mvc;
