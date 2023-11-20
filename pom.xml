@@ -31,6 +31,7 @@
     </parent>
 
     <modules>
+        <module>modules/commons</module>
         <module>modules/app</module>
         <module>modules/worker</module>
     </modules>

@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/app/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/app/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/modules/app/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/commons/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/commons/src/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/modules/worker/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/worker/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/modules/worker/src/test/java" isTestSource="true" />
