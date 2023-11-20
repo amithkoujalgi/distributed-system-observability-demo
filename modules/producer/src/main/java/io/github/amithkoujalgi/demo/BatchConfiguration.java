@@ -23,7 +23,6 @@ public class BatchConfiguration {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    // tag::readerwriterprocessor[]
     @Bean
     public FlatFileItemReader<Person> reader() {
         return new FlatFileItemReaderBuilder<Person>()
@@ -48,9 +47,7 @@ public class BatchConfiguration {
                 .beanMapped()
                 .build();
     }
-    // end::readerwriterprocessor[]
 
-    // tag::jobstep[]
     @Bean
     public Job importUserJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener listener) {
         return new JobBuilder("importUserJob", jobRepository)
@@ -69,5 +66,4 @@ public class BatchConfiguration {
                 .writer(writer)
                 .build();
     }
-    // end::jobstep[]
 }
