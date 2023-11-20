@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest(classes = {io.github.amithkoujalgi.demo.DemoApp.class})
+@SpringBootTest(classes = {io.github.amithkoujalgi.demo.DemoWorker.class})
 class UserWorkerRepositoryTest {
 
     @Autowired

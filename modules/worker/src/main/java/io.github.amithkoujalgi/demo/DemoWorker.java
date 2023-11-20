@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoWorker {
 
     public static void main(String[] args) {
-        SpringApplication.run(io.github.amithkoujalgi.demo.DemoApp.class, args);
+        SpringApplication.run(io.github.amithkoujalgi.demo.DemoWorker.class, args);
     }
 
 }
