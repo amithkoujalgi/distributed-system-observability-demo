@@ -3,7 +3,7 @@ package io.github.amithkoujalgi.demo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.amithkoujalgi.demo.DemoApplication;
 import io.github.amithkoujalgi.demo.DemoApplication;
-import io.gitub.amithkoujalgi.demo.entities.User;
+import io.github.amithkoujalgi.demo.entities.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

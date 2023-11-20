@@ -1,6 +1,6 @@
-package io.gitub.amithkoujalgi.demo.tests;
+package io.github.amithkoujalgi.demo.tests;
 
-import io.gitub.amithkoujalgi.demo.models.http.Order;
+import io.github.amithkoujalgi.demo.models.http.Order;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -45,7 +45,7 @@ public class StandaloneKafkaAPIs {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "ConsumerGroup1");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "io.gitub.amithkoujalgi.demo.apimodels");
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "io.github.amithkoujalgi.demo.apimodels");
         return new KafkaConsumer<>(props);
     }
 }

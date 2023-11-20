@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.repositories.impl;
+package io.github.amithkoujalgi.demo.repositories.impl;
 
-import io.gitub.amithkoujalgi.demo.models.http.Instrument;
-import io.gitub.amithkoujalgi.demo.repositories.InstrumentRepository;
+import io.github.amithkoujalgi.demo.models.http.Instrument;
+import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;

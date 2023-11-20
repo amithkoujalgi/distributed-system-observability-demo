@@ -1,8 +1,8 @@
 package io.github.amithkoujalgi.demo.repository;
 
 import io.github.amithkoujalgi.demo.DemoApplication;
-import io.gitub.amithkoujalgi.demo.entities.User;
-import io.gitub.amithkoujalgi.demo.repositories.UserRepository;
+import io.github.amithkoujalgi.demo.entities.User;
+import io.github.amithkoujalgi.demo.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

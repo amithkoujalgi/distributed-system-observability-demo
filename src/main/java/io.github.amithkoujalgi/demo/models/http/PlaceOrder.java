@@ -1,4 +1,4 @@
-package io.gitub.amithkoujalgi.demo.models.http;
+package io.github.amithkoujalgi.demo.models.http;
 
 public class PlaceOrder {
     private String instrument;

@@ -1,11 +1,11 @@
-package io.gitub.amithkoujalgi.demo.repositories.impl;
+package io.github.amithkoujalgi.demo.repositories.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.gitub.amithkoujalgi.demo.models.http.Order;
-import io.gitub.amithkoujalgi.demo.models.http.PortfolioItem;
-import io.gitub.amithkoujalgi.demo.models.http.PortfolioItemAverage;
-import io.gitub.amithkoujalgi.demo.models.http.UserOrder;
-import io.gitub.amithkoujalgi.demo.repositories.TradeRepository;
+import io.github.amithkoujalgi.demo.models.http.Order;
+import io.github.amithkoujalgi.demo.models.http.PortfolioItem;
+import io.github.amithkoujalgi.demo.models.http.PortfolioItemAverage;
+import io.github.amithkoujalgi.demo.models.http.UserOrder;
+import io.github.amithkoujalgi.demo.repositories.TradeRepository;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;

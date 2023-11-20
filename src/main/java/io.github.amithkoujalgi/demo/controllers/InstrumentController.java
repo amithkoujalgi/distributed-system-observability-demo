@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.controllers;
+package io.github.amithkoujalgi.demo.controllers;
 
-import io.gitub.amithkoujalgi.demo.models.http.Instrument;
-import io.gitub.amithkoujalgi.demo.repositories.InstrumentRepository;
+import io.github.amithkoujalgi.demo.models.http.Instrument;
+import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

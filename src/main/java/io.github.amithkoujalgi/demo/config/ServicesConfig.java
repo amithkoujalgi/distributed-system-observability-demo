@@ -1,6 +1,6 @@
-package io.gitub.amithkoujalgi.demo.config;
+package io.github.amithkoujalgi.demo.config;
 
-import io.gitub.amithkoujalgi.demo.services.PortfolioService;
+import io.github.amithkoujalgi.demo.services.PortfolioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;

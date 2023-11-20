@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.services;
+package io.github.amithkoujalgi.demo.services;
 
-import io.gitub.amithkoujalgi.demo.entities.PortfolioInstrument;
-import io.gitub.amithkoujalgi.demo.repositories.PortfolioRepository;
+import io.github.amithkoujalgi.demo.entities.PortfolioInstrument;
+import io.github.amithkoujalgi.demo.repositories.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

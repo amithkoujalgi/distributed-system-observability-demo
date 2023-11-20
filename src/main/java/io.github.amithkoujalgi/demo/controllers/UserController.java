@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.controllers;
+package io.github.amithkoujalgi.demo.controllers;
 
-import io.gitub.amithkoujalgi.demo.entities.User;
-import io.gitub.amithkoujalgi.demo.repositories.UserRepository;
+import io.github.amithkoujalgi.demo.entities.User;
+import io.github.amithkoujalgi.demo.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

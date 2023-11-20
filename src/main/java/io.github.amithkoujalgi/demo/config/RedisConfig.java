@@ -1,4 +1,4 @@
-package io.gitub.amithkoujalgi.demo.config;
+package io.github.amithkoujalgi.demo.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

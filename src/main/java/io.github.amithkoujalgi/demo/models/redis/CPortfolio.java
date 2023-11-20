@@ -1,4 +1,4 @@
-package io.gitub.amithkoujalgi.demo.models.redis;
+package io.github.amithkoujalgi.demo.models.redis;
 
 public class CPortfolio {
     private String instrument;

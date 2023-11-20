@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.repositories;
+package io.github.amithkoujalgi.demo.repositories;
 
 
-import io.gitub.amithkoujalgi.demo.models.http.Instrument;
+import io.github.amithkoujalgi.demo.models.http.Instrument;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

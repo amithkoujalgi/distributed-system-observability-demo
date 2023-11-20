@@ -1,4 +1,4 @@
-package io.gitub.amithkoujalgi.demo.config;
+package io.github.amithkoujalgi.demo.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -54,7 +54,7 @@ public class KafkaConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "ConsumerGroup1");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "io.gitub.amithkoujalgi.demo.apimodels");
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "io.github.amithkoujalgi.demo.apimodels");
         return props;
     }
 

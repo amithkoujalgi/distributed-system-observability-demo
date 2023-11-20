@@ -1,10 +1,10 @@
-package io.gitub.amithkoujalgi.demo.controllers;
+package io.github.amithkoujalgi.demo.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.gitub.amithkoujalgi.demo.entities.PortfolioInstrument;
-import io.gitub.amithkoujalgi.demo.models.http.*;
-import io.gitub.amithkoujalgi.demo.repositories.TradeRepository;
-import io.gitub.amithkoujalgi.demo.services.PortfolioService;
+import io.github.amithkoujalgi.demo.entities.PortfolioInstrument;
+import io.github.amithkoujalgi.demo.models.http.*;
+import io.github.amithkoujalgi.demo.repositories.TradeRepository;
+import io.github.amithkoujalgi.demo.services.PortfolioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

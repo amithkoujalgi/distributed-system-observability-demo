@@ -1,9 +1,9 @@
-package io.gitub.amithkoujalgi.demo.config;
+package io.github.amithkoujalgi.demo.config;
 
-import io.gitub.amithkoujalgi.demo.repositories.InstrumentRepository;
-import io.gitub.amithkoujalgi.demo.repositories.TradeRepository;
-import io.gitub.amithkoujalgi.demo.repositories.impl.InstrumentRepositoryImpl;
-import io.gitub.amithkoujalgi.demo.repositories.impl.TradeRepositoryImpl;
+import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
+import io.github.amithkoujalgi.demo.repositories.TradeRepository;
+import io.github.amithkoujalgi.demo.repositories.impl.InstrumentRepositoryImpl;
+import io.github.amithkoujalgi.demo.repositories.impl.TradeRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;

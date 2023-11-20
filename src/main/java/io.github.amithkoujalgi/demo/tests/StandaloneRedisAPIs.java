@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.tests;
+package io.github.amithkoujalgi.demo.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.gitub.amithkoujalgi.demo.models.http.Instrument;
+import io.github.amithkoujalgi.demo.models.http.Instrument;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;

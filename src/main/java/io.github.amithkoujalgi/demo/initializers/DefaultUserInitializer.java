@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.initializers;
+package io.github.amithkoujalgi.demo.initializers;
 
-import io.gitub.amithkoujalgi.demo.entities.User;
-import io.gitub.amithkoujalgi.demo.repositories.UserRepository;
+import io.github.amithkoujalgi.demo.entities.User;
+import io.github.amithkoujalgi.demo.repositories.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

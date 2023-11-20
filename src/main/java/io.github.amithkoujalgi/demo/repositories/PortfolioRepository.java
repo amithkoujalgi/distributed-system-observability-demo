@@ -1,7 +1,7 @@
-package io.gitub.amithkoujalgi.demo.repositories;
+package io.github.amithkoujalgi.demo.repositories;
 
 
-import io.gitub.amithkoujalgi.demo.entities.PortfolioInstrument;
+import io.github.amithkoujalgi.demo.entities.PortfolioInstrument;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package io.gitub.amithkoujalgi.demo.entities;
+package io.github.amithkoujalgi.demo.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
