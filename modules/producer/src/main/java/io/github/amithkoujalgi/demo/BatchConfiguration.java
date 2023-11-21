@@ -1,6 +1,7 @@
 package io.github.amithkoujalgi.demo;
 
 import io.github.amithkoujalgi.demo.producer.FileItemProcessor;
+import io.github.amithkoujalgi.demo.producer.FileNamePrintingItemWriter;
 import io.github.amithkoujalgi.demo.producer.JobCompletionNotificationListener;
 import io.github.amithkoujalgi.demo.producer.KafkaItemWriter;
 import org.slf4j.Logger;
@@ -43,28 +44,25 @@ public class BatchConfiguration {
     @Value("${producer.source_directory}")
     private String sourceDirectory;
 
+    @Value("${producer.writer-impl:printer}")
+    private String writerImpl;
+
     @Bean(value = "datasource-batch")
     @ConfigurationProperties(prefix = "spring.datasource-batch")
     public DataSource dataSource() {
         return new DriverManagerDataSource();
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BatchConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         final Environment env = event.getApplicationContext().getEnvironment();
-        LOGGER.info("====== Environment and configuration ======");
-        LOGGER.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
+        log.info("====== Environment and configuration ======");
+        log.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
         final MutablePropertySources sources = ((AbstractEnvironment) env).getPropertySources();
-        StreamSupport.stream(sources.spliterator(), false)
-                .filter(ps -> ps instanceof EnumerablePropertySource)
-                .map(ps -> ((EnumerablePropertySource<?>) ps).getPropertyNames())
-                .flatMap(Arrays::stream)
-                .distinct()
-                .filter(prop -> !(prop.contains("credentials") || prop.contains("password")))
-                .forEach(prop -> LOGGER.info("{}: {}", prop, env.getProperty(prop)));
-        LOGGER.info("===========================================");
+        StreamSupport.stream(sources.spliterator(), false).filter(ps -> ps instanceof EnumerablePropertySource).map(ps -> ((EnumerablePropertySource<?>) ps).getPropertyNames()).flatMap(Arrays::stream).distinct().filter(prop -> !(prop.contains("credentials") || prop.contains("password"))).forEach(prop -> log.info("{}: {}", prop, env.getProperty(prop)));
+        log.info("===========================================");
     }
 
     @Bean
@@ -74,10 +72,7 @@ public class BatchConfiguration {
 
     @Bean
     public ItemReader<File> reader() throws IOException {
-        List<File> files = Files.walk(Paths.get(sourceDirectory))
-                .filter(Files::isRegularFile)
-                .map(Path::toFile)
-                .collect(Collectors.toList());
+        List<File> files = Files.walk(Paths.get(sourceDirectory)).filter(Files::isRegularFile).map(Path::toFile).collect(Collectors.toList());
         return new IteratorItemReader<>(files);
     }
 
@@ -88,27 +83,28 @@ public class BatchConfiguration {
 
     @Bean
     public ItemWriter<File> writer() {
-//        return new FileNamePrintingItemWriter();
-        return new KafkaItemWriter();
+        // available types: kafka/printer
+        if (writerImpl.equalsIgnoreCase("kafka")) {
+            log.info("Using writer implementation: kafka");
+            return new KafkaItemWriter();
+        } else if (writerImpl.equalsIgnoreCase("printer")) {
+            log.info("Using writer implementation: printer");
+            return new FileNamePrintingItemWriter();
+        } else {
+            log.info("Invalid writer implementation {}. Defaulting to printer impl.", writerImpl);
+            return new FileNamePrintingItemWriter();
+        }
+
     }
 
     @Bean
     public Job importFilesJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener listener) {
-        return new JobBuilder("importFilesJob", jobRepository)
-                .listener(listener)
-                .start(step1)
-                .build();
+        return new JobBuilder("importFilesJob", jobRepository).listener(listener).start(step1).build();
     }
 
     @Bean
-    public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager,
-                      ItemReader<File> reader, FileItemProcessor processor, ItemWriter<File> writer) {
-        return new StepBuilder("step1", jobRepository)
-                .<File, File>chunk(3, transactionManager)
-                .reader(reader)
-                .processor(processor)
-                .writer(writer)
-                .build();
+    public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager, ItemReader<File> reader, FileItemProcessor processor, ItemWriter<File> writer) {
+        return new StepBuilder("step1", jobRepository).<File, File>chunk(3, transactionManager).reader(reader).processor(processor).writer(writer).build();
     }
 }
 

@@ -26,6 +26,7 @@ spring:
 producer:
   source_directory: "/Users/amithkoujalgi/Desktop/"
   target_directory: "/Users/amithkoujalgi/Desktop/test/"
+#  writer-impl: kafka
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:9092}
   topic: documents
