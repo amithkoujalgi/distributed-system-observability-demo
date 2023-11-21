@@ -1,4 +1,4 @@
-package io.github.amithkoujalgi.demo.producer;
+package io.github.amithkoujalgi.demo.producer.processors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,6 @@ import org.springframework.batch.item.ItemProcessor;
 import java.io.File;
 
 public class FileItemProcessor implements ItemProcessor<File, File> {
-
     private static final Logger log = LoggerFactory.getLogger(FileItemProcessor.class);
 
     @Override

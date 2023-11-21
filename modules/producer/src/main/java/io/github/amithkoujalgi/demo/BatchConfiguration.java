@@ -1,9 +1,10 @@
 package io.github.amithkoujalgi.demo;
 
-import io.github.amithkoujalgi.demo.producer.FileItemProcessor;
-import io.github.amithkoujalgi.demo.producer.FileNamePrintingItemWriter;
-import io.github.amithkoujalgi.demo.producer.JobCompletionNotificationListener;
-import io.github.amithkoujalgi.demo.producer.KafkaItemWriter;
+import io.github.amithkoujalgi.demo.producer.listeners.JobCompletionNotificationListener;
+import io.github.amithkoujalgi.demo.producer.processors.FileItemProcessor;
+import io.github.amithkoujalgi.demo.producer.readers.LocalItemReader;
+import io.github.amithkoujalgi.demo.producer.writers.PrintingWriter;
+import io.github.amithkoujalgi.demo.producer.writers.KafkaItemWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -13,7 +14,6 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,20 +29,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Configuration
 public class BatchConfiguration {
-
-    @Value("${producer.source_directory}")
-    private String sourceDirectory;
+    @Value("${producer.reader-impl:local}")
+    private String readerImpl;
 
     @Value("${producer.writer-impl:printer}")
     private String writerImpl;
@@ -71,9 +64,18 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemReader<File> reader() throws IOException {
-        List<File> files = Files.walk(Paths.get(sourceDirectory)).filter(Files::isRegularFile).map(Path::toFile).collect(Collectors.toList());
-        return new IteratorItemReader<>(files);
+    public ItemReader<File> reader() {
+        // available types: sftp/local
+        if (readerImpl.equalsIgnoreCase("sftp")) {
+            log.info("Using reader implementation: sftp");
+            return new LocalItemReader();
+        } else if (readerImpl.equalsIgnoreCase("local")) {
+            log.info("Using reader implementation: local");
+            return new LocalItemReader();
+        } else {
+            log.info("Invalid reader implementation {}. Defaulting to local impl.", readerImpl);
+            return new LocalItemReader();
+        }
     }
 
     @Bean
@@ -89,12 +91,11 @@ public class BatchConfiguration {
             return new KafkaItemWriter();
         } else if (writerImpl.equalsIgnoreCase("printer")) {
             log.info("Using writer implementation: printer");
-            return new FileNamePrintingItemWriter();
+            return new PrintingWriter();
         } else {
             log.info("Invalid writer implementation {}. Defaulting to printer impl.", writerImpl);
-            return new FileNamePrintingItemWriter();
+            return new PrintingWriter();
         }
-
     }
 
     @Bean

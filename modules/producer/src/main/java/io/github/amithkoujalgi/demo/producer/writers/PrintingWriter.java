@@ -1,4 +1,4 @@
-package io.github.amithkoujalgi.demo.producer;
+package io.github.amithkoujalgi.demo.producer.writers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-public class FileNamePrintingItemWriter implements ItemWriter<File> {
-    private static final Logger log = LoggerFactory.getLogger(FileNamePrintingItemWriter.class);
-    @Value("${producer.target_directory}")
+public class PrintingWriter implements ItemWriter<File> {
+    private static final Logger log = LoggerFactory.getLogger(PrintingWriter.class);
+    @Value("${producer.target-directory}")
     private String targetDirectory;
 
     @Override
