@@ -59,7 +59,7 @@ public class BatchConfiguration {
         final MutablePropertySources sources = ((AbstractEnvironment) env).getPropertySources();
         StreamSupport.stream(sources.spliterator(), false)
                 .filter(ps -> ps instanceof EnumerablePropertySource)
-                .map(ps -> ((EnumerablePropertySource) ps).getPropertyNames())
+                .map(ps -> ((EnumerablePropertySource<?>) ps).getPropertyNames())
                 .flatMap(Arrays::stream)
                 .distinct()
                 .filter(prop -> !(prop.contains("credentials") || prop.contains("password")))
@@ -88,7 +88,6 @@ public class BatchConfiguration {
 
     @Bean
     public ItemWriter<File> writer() {
-
 //        return new FileNamePrintingItemWriter();
         return new KafkaItemWriter();
     }

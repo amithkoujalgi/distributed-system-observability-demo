@@ -1,3 +1,5 @@
+server:
+  port: 8085
 spring:
   batch:
     jdbc:
@@ -25,5 +27,5 @@ producer:
   source_directory: "/Users/amithkoujalgi/Desktop/"
   target_directory: "/Users/amithkoujalgi/Desktop/test/"
 infrastructure:
-  kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:32092}
+  kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:9092}
   topic: documents
