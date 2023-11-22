@@ -1,5 +1,23 @@
 server:
   port: 9905
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '/api/*'
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          requests: true
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
 springdoc:
   swagger-ui:
     path: /docs
@@ -19,3 +37,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
