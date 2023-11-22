@@ -3,8 +3,8 @@ package io.github.amithkoujalgi.demo;
 import io.github.amithkoujalgi.demo.producer.listeners.JobCompletionNotificationListener;
 import io.github.amithkoujalgi.demo.producer.processors.FileItemProcessor;
 import io.github.amithkoujalgi.demo.producer.readers.LocalItemReader;
-import io.github.amithkoujalgi.demo.producer.writers.PrintingWriter;
 import io.github.amithkoujalgi.demo.producer.writers.KafkaItemWriter;
+import io.github.amithkoujalgi.demo.producer.writers.PrintingWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -48,21 +48,6 @@ public class BatchConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 
-    @EventListener
-    public void handleContextRefresh(ContextRefreshedEvent event) {
-        final Environment env = event.getApplicationContext().getEnvironment();
-        log.info("====== Environment and configuration ======");
-        log.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
-        final MutablePropertySources sources = ((AbstractEnvironment) env).getPropertySources();
-        StreamSupport.stream(sources.spliterator(), false).filter(ps -> ps instanceof EnumerablePropertySource).map(ps -> ((EnumerablePropertySource<?>) ps).getPropertyNames()).flatMap(Arrays::stream).distinct().filter(prop -> !(prop.contains("credentials") || prop.contains("password"))).forEach(prop -> log.info("{}: {}", prop, env.getProperty(prop)));
-        log.info("===========================================");
-    }
-
-    @Bean
-    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
-
     @Bean
     public ItemReader<File> reader() {
         // available types: sftp/local
@@ -98,13 +83,28 @@ public class BatchConfiguration {
         }
     }
 
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        final Environment env = event.getApplicationContext().getEnvironment();
+        log.info("====== Environment and configuration ======");
+        log.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
+        final MutablePropertySources sources = ((AbstractEnvironment) env).getPropertySources();
+        StreamSupport.stream(sources.spliterator(), false).filter(ps -> ps instanceof EnumerablePropertySource).map(ps -> ((EnumerablePropertySource<?>) ps).getPropertyNames()).flatMap(Arrays::stream).distinct().filter(prop -> !(prop.contains("credentials") || prop.contains("password"))).forEach(prop -> log.info("{}: {}", prop, env.getProperty(prop)));
+        log.info("===========================================");
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
     @Bean
     public Job importFilesJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener listener) {
         return new JobBuilder("importFilesJob", jobRepository).listener(listener).start(step1).build();
     }
 
     @Bean
-    public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager, ItemReader<File> reader, FileItemProcessor processor, ItemWriter<File> writer) {
+    public Step step(JobRepository jobRepository, DataSourceTransactionManager transactionManager, ItemReader<File> reader, FileItemProcessor processor, ItemWriter<File> writer) {
         return new StepBuilder("step1", jobRepository).<File, File>chunk(3, transactionManager).reader(reader).processor(processor).writer(writer).build();
     }
 }

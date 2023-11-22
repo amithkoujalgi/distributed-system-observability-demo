@@ -1,5 +1,6 @@
 server:
   port: 9905
+
 springdoc:
   swagger-ui:
     path: /docs
@@ -8,6 +9,8 @@ infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
   topic: stock-transactions
 spring:
+  zipkin:
+    base-url:http://localhost:9411
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:32432}/demo
     username: root

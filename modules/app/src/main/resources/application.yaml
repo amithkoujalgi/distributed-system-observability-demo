@@ -9,7 +9,7 @@ infrastructure:
   topic: stock-transactions
 spring:
   datasource:
-    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:32432}/demo
+    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/demo
     username: root
     password: root
     driver-class-name: org.postgresql.Driver
