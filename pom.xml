@@ -17,6 +17,7 @@
         <snakeyaml.version>2.2</snakeyaml.version>
         <spring-cloud.version>2022.0.3</spring-cloud.version>
         <springdoc.openapi-starter-webmvc-ui>2.2.0</springdoc.openapi-starter-webmvc-ui>
+        <spring.boot-starter-data-redis>2.7.2</spring.boot-starter-data-redis>
         <maven.compiler.version>3.8.0</maven.compiler.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -63,6 +64,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring.boot-starter-data-redis}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>

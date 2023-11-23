@@ -35,7 +35,7 @@ public class TradeController {
     @ResponseStatus(HttpStatus.OK)
     public boolean placeOrder(@RequestBody final PlaceOrder order) {
         Order newOrder = new Order(order.getInstrument(), new Date(System.currentTimeMillis()), order.getPrice(), order.getQuantity(), order.getUserId(), UUID.randomUUID().toString(), order.getType());
-        return tradeRepository.placeOrder(newOrder, "");
+        return tradeRepository.placeOrder(newOrder);
     }
 
     @Operation(summary = "List orders of a user")
@@ -43,7 +43,7 @@ public class TradeController {
     @GetMapping("/orders/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public List<UserOrder> listOrders(@PathVariable String userId) {
-        return tradeRepository.listOrdersOfUser(userId, "");
+        return tradeRepository.listOrdersOfUser(userId);
     }
 
     @Operation(summary = "Get portfolio of a user")

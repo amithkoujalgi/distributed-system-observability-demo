@@ -48,6 +48,13 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: 'kafka-svc:19092'
       AUTH_TYPE: 'DISABLED'
 
+  redis-svc:
+    container_name: redis-svc
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
   nginx-svc:
     image: nginx
     hostname: nginx-svc

@@ -1,2 +1,2 @@
-docker-compose -f ./docker-compose-base-services.yaml down
-docker-compose -f ./docker-compose-base-services.yaml up --remove-orphans
+docker-compose -f ./docker-compose.yaml down
+docker-compose -f ./docker-compose.yaml up --remove-orphans

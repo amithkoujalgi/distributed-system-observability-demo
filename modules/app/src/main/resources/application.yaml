@@ -26,6 +26,13 @@ springdoc:
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
   topic: stock-transactions
+  redis:
+    host: localhost
+    port: 6379
+    keys:
+      stocks: "stocks"
+      indices: "indices"
+      portfolio: "portfolio"
 spring:
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/demo

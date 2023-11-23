@@ -12,6 +12,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.errors.RecordDeserializationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
@@ -21,16 +23,22 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class TradeRepositoryImpl implements TradeRepository {
+    @Autowired
+    private RedisTemplate redisTemplate;
 
+    @Value("${infrastructure.redis.keys.portfolio}")
+    private String userPortfolioKeyname;
     @Autowired
     private KafkaTemplate<String, Object> kafkaProducer;
 
     @Autowired
     private KafkaConsumer<String, Object> kafkaConsumer;
+    @Value("${infrastructure.topic}")
+    private String topic;
 
     @Override
-    public boolean placeOrder(Order order, String ordersTopic) {
-        CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(ordersTopic, order.getUserId(), order);
+    public boolean placeOrder(Order order) {
+        CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topic, order.getUserId(), order);
         // if we need to wait for ack
         //  while (!msg.isDone()) {
         //       System.out.println("waiting for ack");
@@ -39,8 +47,8 @@ public class TradeRepositoryImpl implements TradeRepository {
     }
 
     @Override
-    public List<UserOrder> listOrdersOfUser(String userId, String ordersTopic) {
-        TopicPartition partition = new TopicPartition(ordersTopic, 0);
+    public List<UserOrder> listOrdersOfUser(String userId) {
+        TopicPartition partition = new TopicPartition(topic, 0);
         List<TopicPartition> partitions = new ArrayList<>();
         partitions.add(partition);
         kafkaConsumer.assign(partitions);
@@ -68,7 +76,15 @@ public class TradeRepositoryImpl implements TradeRepository {
 
     @Override
     public List<PortfolioItem> getPortfolioOfUser(String userId) throws JsonProcessingException {
+        Set<String> stockKeys = redisTemplate.keys(userPortfolioKeyname + "*");
         List<PortfolioItem> portfolioItemList = new ArrayList<>();
+        for (String key : stockKeys) {
+            List<String> portfolioItems = redisTemplate.opsForList().range(key, 0, 1);
+            for (String item : portfolioItems) {
+                PortfolioItem portfolioItem = PortfolioItem.fromJSONString(item);
+                portfolioItemList.add(portfolioItem);
+            }
+        }
         return portfolioItemList;
     }
 

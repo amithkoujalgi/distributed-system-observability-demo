@@ -13,9 +13,9 @@ import java.util.List;
 @Repository
 public interface TradeRepository {
 
-    boolean placeOrder(Order order, String ordersTopic);
+    boolean placeOrder(Order order);
 
-    List<UserOrder> listOrdersOfUser(String userId, String ordersTopic);
+    List<UserOrder> listOrdersOfUser(String userId);
 
 
     List<PortfolioItem> getPortfolioOfUser(String userId) throws JsonProcessingException;
