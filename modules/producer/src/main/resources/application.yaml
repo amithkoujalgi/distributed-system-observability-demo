@@ -24,10 +24,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 producer:
-  source-directory: "/Users/amithkoujalgi/Desktop/"
-  target-directory: "/Users/amithkoujalgi/Desktop/test/"
-  reader-impl: local
-  writer-impl: kafka
+  stock-instruments: "GOOGL,AAPL,TSLA,NVDA,AMD,AMZN,INTC,MSFT,UBER,ADBE,CSCO"
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:9092}
-  topic: stocks
+  topics:
+    price-changes: stock-prices
+    orders-placed: orders

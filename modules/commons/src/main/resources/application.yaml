@@ -6,7 +6,9 @@ springdoc:
     tryItOutEnabled: true
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
-  topic: stock-transactions
+  topics:
+    price-changes: stock-prices
+    orders-placed: orders
 spring:
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:32432}/demo

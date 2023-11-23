@@ -15,19 +15,19 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 public class KafkaInstrumentWriter implements ItemWriter<Instrument> {
-    private static final Logger log = LoggerFactory.getLogger(KafkaItemWriter.class);
+    private static final Logger log = LoggerFactory.getLogger(KafkaInstrumentWriter.class);
 
     @Autowired
     private KafkaTemplate<String, Object> kafkaProducer;
 
-    @Value("${infrastructure.topic}")
-    private String topic;
+    @Value("${infrastructure.topics.price-changes}")
+    private String topicPriceUpdates;
 
     @Override
     public void write(Chunk<? extends Instrument> chunk) {
         log.info("Writing instruments to Kafka...");
         for (Instrument instrument : chunk.getItems()) {
-            CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topic, instrument.getName(), instrument);
+            CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topicPriceUpdates, instrument.getName(), instrument);
         }
     }
 }

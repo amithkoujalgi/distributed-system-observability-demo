@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class InstrumentRepositoryImpl implements InstrumentRepository {
     @Override
     public List<Instrument> fetchAllStockInstruments() throws Exception {
-        List<Instrument> instrumentList = new ArrayList<>();
-
-        return instrumentList;
+        return new ArrayList<>();
     }
 
     @Override
@@ -34,9 +31,7 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
 
     @Override
     public List<Instrument> fetchAllIndexInstruments() throws Exception {
-        List<Instrument> instrumentList = new ArrayList<>();
-
-        return instrumentList;
+        return new ArrayList<>();
     }
 
     @Override

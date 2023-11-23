@@ -28,12 +28,13 @@ public class TradeRepositoryImpl implements TradeRepository {
 
     @Autowired
     private KafkaConsumer<String, Object> kafkaConsumer;
-    @Value("${infrastructure.topic}")
-    private String topic;
+
+    @Value("${infrastructure.topics.orders-placed}")
+    private String ordersTopic;
 
     @Override
     public boolean placeOrder(Order order) {
-        CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topic, order.getUserId(), order);
+        CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(ordersTopic, order.getUserId(), order);
         // if we need to wait for ack
         //  while (!msg.isDone()) {
         //       System.out.println("waiting for ack");
@@ -43,7 +44,7 @@ public class TradeRepositoryImpl implements TradeRepository {
 
     @Override
     public List<UserOrder> listOrdersOfUser(String userId) {
-        TopicPartition partition = new TopicPartition(topic, 0);
+        TopicPartition partition = new TopicPartition(ordersTopic, 0);
         List<TopicPartition> partitions = new ArrayList<>();
         partitions.add(partition);
         kafkaConsumer.assign(partitions);

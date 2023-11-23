@@ -99,13 +99,15 @@ public class Instrument {
         return trends.get(new Random().nextInt(trends.size()));
     }
 
-    private static String getRandomInstrument() {
-        List<String> trends = Arrays.asList("AAPL", "GOOGL", "ADANI", "TATA");
-        return trends.get(new Random().nextInt(trends.size()));
+    private static String getRandomInstrument(List<String> instrumentNames) {
+        return instrumentNames.get(new Random().nextInt(instrumentNames.size()));
     }
 
-    public static Instrument random() {
-        String name = getRandomInstrument();
+    public static Instrument random(List<String> instrumentNames) {
+        if (instrumentNames == null || instrumentNames.isEmpty()) {
+            instrumentNames = Arrays.asList("AAPL", "GOOGL", "ADANI", "TATA");
+        }
+        String name = getRandomInstrument(instrumentNames);
         Date timestamp = new Date();
         Double lastTradedPrice = 10.0 + Math.random() * (100.0 - 10.0);
         String trend = getRandomTrend();
