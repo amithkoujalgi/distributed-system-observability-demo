@@ -6,8 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 public class Instrument {
     private String name;
@@ -93,5 +92,23 @@ public class Instrument {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static String getRandomTrend() {
+        List<String> trends = Arrays.asList("UP", "DOWN");
+        return trends.get(new Random().nextInt(trends.size()));
+    }
+
+    private static String getRandomInstrument() {
+        List<String> trends = Arrays.asList("AAPL", "GOOGL", "ADANI", "TATA");
+        return trends.get(new Random().nextInt(trends.size()));
+    }
+
+    public static Instrument random() {
+        String name = getRandomInstrument();
+        Date timestamp = new Date();
+        Double lastTradedPrice = Math.random();
+        String trend = getRandomTrend();
+        return new Instrument(name, timestamp, lastTradedPrice, trend);
     }
 }

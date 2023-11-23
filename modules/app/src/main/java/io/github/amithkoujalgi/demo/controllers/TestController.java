@@ -1,7 +1,6 @@
 package io.github.amithkoujalgi.demo.controllers;
 
 import io.micrometer.observation.annotation.Observed;
-import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,6 +29,7 @@ public class TestController {
     @Autowired
     Tracer tracer;
 
+    // use this for external API calls. This will enable tracing of requests.
     @Autowired
     RestTemplate restTemplate;
 
@@ -47,7 +47,7 @@ public class TestController {
 //        } finally {
 //            newSpan.end();
 //        }
-        ResponseEntity<String> response = restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, null, String.class);
+//        ResponseEntity<String> response = restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, null, String.class);
         return new ArrayList<>();
     }
 }

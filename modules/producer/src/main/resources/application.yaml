@@ -7,7 +7,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:32432}/demo
+    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
     username: root
     password: root
     driver-class-name: org.postgresql.Driver
@@ -30,4 +30,4 @@ producer:
   writer-impl: kafka
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:9092}
-  topic: documents
+  topic: stocks
