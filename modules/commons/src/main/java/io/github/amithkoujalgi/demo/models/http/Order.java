@@ -11,9 +11,7 @@ public class Order {
     private Double price;
     private Integer quantity;
     private String userId;
-
     private String orderId;
-
     private OrderType type;
 
     public Order() {

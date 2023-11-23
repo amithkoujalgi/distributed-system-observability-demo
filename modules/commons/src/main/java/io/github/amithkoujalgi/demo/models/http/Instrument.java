@@ -107,7 +107,7 @@ public class Instrument {
     public static Instrument random() {
         String name = getRandomInstrument();
         Date timestamp = new Date();
-        Double lastTradedPrice = Math.random();
+        Double lastTradedPrice = 10.0 + Math.random() * (100.0 - 10.0);
         String trend = getRandomTrend();
         return new Instrument(name, timestamp, lastTradedPrice, trend);
     }

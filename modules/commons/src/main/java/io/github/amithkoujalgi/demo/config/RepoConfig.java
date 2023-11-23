@@ -1,9 +1,7 @@
 package io.github.amithkoujalgi.demo.config;
 
-import io.github.amithkoujalgi.demo.repositories.DocumentRepository;
 import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
 import io.github.amithkoujalgi.demo.repositories.TradeRepository;
-import io.github.amithkoujalgi.demo.repositories.impl.DocumentRepositoryImpl;
 import io.github.amithkoujalgi.demo.repositories.impl.InstrumentRepositoryImpl;
 import io.github.amithkoujalgi.demo.repositories.impl.TradeRepositoryImpl;
 import org.springframework.context.annotation.Bean;
@@ -22,10 +20,5 @@ public class RepoConfig {
     @Bean
     public TradeRepository tradeRepository() {
         return new TradeRepositoryImpl();
-    }
-
-    @Bean
-    public DocumentRepository documentRepository() {
-        return new DocumentRepositoryImpl();
     }
 }
