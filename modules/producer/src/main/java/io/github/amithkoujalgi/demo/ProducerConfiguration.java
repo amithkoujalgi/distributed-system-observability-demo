@@ -71,8 +71,8 @@ public class ProducerConfiguration {
     }
 
     @Bean
-    public Job importInstrumentsJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener listener) {
-        return new JobBuilder("importInstrumentsJob", jobRepository).listener(listener).start(step1).build();
+    public Job generateInstrumentsJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener listener) {
+        return new JobBuilder("generateInstrumentsJob", jobRepository).listener(listener).start(step1).build();
     }
 
     @Bean
