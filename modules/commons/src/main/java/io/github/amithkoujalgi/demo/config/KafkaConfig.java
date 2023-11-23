@@ -61,5 +61,4 @@ public class KafkaConfig {
     public KafkaConsumer<String, Object> kafkaConsumer() {
         return new KafkaConsumer<>(consumerConfig());
     }
-
 }

@@ -1,0 +1,3 @@
+Demo Producer
+
+Using Spring Boot: ${spring-boot.version}

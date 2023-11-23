@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo.config", "io.github.amithkoujalgi.demo.controllers", "io.github.amithkoujalgi.demo.repositories", "io.github.amithkoujalgi.demo.initializers"})
 @OpenAPIDefinition(info = @Info(title = "Demo Worker"))
 public class DemoWorker {
-
     public static void main(String[] args) {
         SpringApplication.run(io.github.amithkoujalgi.demo.DemoWorker.class, args);
     }
-
 }
