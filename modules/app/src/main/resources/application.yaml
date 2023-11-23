@@ -5,7 +5,8 @@ management:
     enabled-by-default: true
     web:
       exposure:
-        include: '/api/*'
+        include: '*'
+        exclude: 'info,health'
   tracing:
     enabled: true
     sampling:

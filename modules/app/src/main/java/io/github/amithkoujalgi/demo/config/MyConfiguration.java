@@ -1,4 +1,4 @@
-package io.github.amithkoujalgi.demo.configuration;
+package io.github.amithkoujalgi.demo.config;
 
 import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.observation.aop.ObservedAspect;

@@ -12,7 +12,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.errors.RecordDeserializationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
@@ -29,11 +28,8 @@ public class TradeRepositoryImpl implements TradeRepository {
     @Autowired
     private KafkaConsumer<String, Object> kafkaConsumer;
 
-    @Value("${infrastructure.topics.orders-placed}")
-    private String ordersTopic;
-
     @Override
-    public boolean placeOrder(Order order) {
+    public boolean placeOrder(Order order, String ordersTopic) {
         CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(ordersTopic, order.getUserId(), order);
         // if we need to wait for ack
         //  while (!msg.isDone()) {
@@ -43,7 +39,7 @@ public class TradeRepositoryImpl implements TradeRepository {
     }
 
     @Override
-    public List<UserOrder> listOrdersOfUser(String userId) {
+    public List<UserOrder> listOrdersOfUser(String userId, String ordersTopic) {
         TopicPartition partition = new TopicPartition(ordersTopic, 0);
         List<TopicPartition> partitions = new ArrayList<>();
         partitions.add(partition);

@@ -52,7 +52,7 @@ public class KafkaConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "ConsumerGroup1");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "io.github.amithkoujalgi.demo.apimodels");
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "io.github.amithkoujalgi.demo.models.http");
         return props;
     }
 

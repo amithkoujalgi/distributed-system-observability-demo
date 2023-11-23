@@ -12,7 +12,6 @@ public class PortfolioService {
     @Autowired
     private PortfolioRepository portfolioRepository;
 
-
     public List<PortfolioInstrument> getAllPortfolioInstrumentsByUserId(Long userId) {
         return portfolioRepository.findAllByUser_Id(userId);
     }
