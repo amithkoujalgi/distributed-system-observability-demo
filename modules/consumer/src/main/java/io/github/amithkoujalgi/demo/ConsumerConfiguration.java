@@ -4,7 +4,7 @@ import io.github.amithkoujalgi.demo.models.http.Instrument;
 import io.github.amithkoujalgi.demo.consumer.listeners.JobCompletionNotificationListener;
 import io.github.amithkoujalgi.demo.consumer.processors.InstrumentProcessor;
 import io.github.amithkoujalgi.demo.consumer.readers.KafkaInstrumentReader;
-import io.github.amithkoujalgi.demo.consumer.writers.KafkaInstrumentWriter;
+import io.github.amithkoujalgi.demo.consumer.writers.RedisInstrumentWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -52,7 +52,7 @@ public class ConsumerConfiguration {
 
     @Bean
     public ItemWriter<Instrument> writer() {
-        return new KafkaInstrumentWriter();
+        return new RedisInstrumentWriter();
     }
 
     @EventListener
