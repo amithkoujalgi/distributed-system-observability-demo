@@ -10,13 +10,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 
+@SuppressWarnings("rawtypes")
 @SpringBootApplication
 public class ConsumerCLIRunner implements CommandLineRunner {
     @Autowired
     private RedisTemplate redisTemplate;
+
     @Value("${infrastructure.redis.keys.stocks}")
     private String redisHashKeyPrefixStocks;
 
+    @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.price-changes}", groupId = "consumer-group-stock-price-updates")
     public void listen(String message) {
         System.out.println("Received message: " + message);

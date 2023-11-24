@@ -1,1 +1,1 @@
-create database demo;
+create database stocks;

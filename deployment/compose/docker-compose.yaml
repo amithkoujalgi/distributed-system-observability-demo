@@ -87,7 +87,7 @@ services:
     container_name: postgres
     image: postgres
     environment:
-      POSTGRES_DB: demo
+      POSTGRES_DB: stocks
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       PGDATA: /data/postgres
