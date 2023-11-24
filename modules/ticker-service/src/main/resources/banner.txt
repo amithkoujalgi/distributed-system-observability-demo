@@ -1,0 +1,3 @@
+App Service
+
+Using Spring Boot: ${spring-boot.version}

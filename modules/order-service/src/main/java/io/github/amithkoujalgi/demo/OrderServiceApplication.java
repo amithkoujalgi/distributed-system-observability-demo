@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo.config", "io.github.amithkoujalgi.demo.controllers", "io.github.amithkoujalgi.demo.repositories", "io.github.amithkoujalgi.demo.initializers"})
-@OpenAPIDefinition(info = @Info(title = "Demo App"))
+@OpenAPIDefinition(info = @Info(title = "Order Service"))
 @EnableDiscoveryClient
-public class DemoApp {
+public class OrderServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(io.github.amithkoujalgi.demo.DemoApp.class, args);
+        SpringApplication.run(OrderServiceApplication.class, args);
     }
 }

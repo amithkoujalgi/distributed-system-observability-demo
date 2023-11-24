@@ -1,0 +1,58 @@
+server:
+  port: 9903
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          requests: true
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+springdoc:
+  swagger-ui:
+    path: /docs
+    tryItOutEnabled: true
+infrastructure:
+  kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
+  topics:
+    orders-placed: stock-transactions
+  redis:
+    host: localhost
+    port: 6379
+    keys:
+      stocks: "stocks"
+      indices: "indices"
+      portfolio: "portfolio"
+spring:
+  datasource:
+    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: order-service
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
+  instance:
+    preferIpAddress: true
