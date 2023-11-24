@@ -1,7 +1,6 @@
 package io.github.amithkoujalgi.demo.controllers;
 
 import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Applications;
 import io.micrometer.observation.annotation.Observed;
 import io.micrometer.tracing.Tracer;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,16 +11,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.UUID;
 
 @Tag(name = "Test", description = "Test APIs")
 @RestController
@@ -52,36 +47,6 @@ public class TestController {
 //        } finally {
 //            newSpan.end();
 //        }
-//        ResponseEntity<String> response = restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, null, String.class);
         return "world";
-    }
-
-
-    @Operation(summary = "Test Eureka")
-    @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
-    @GetMapping("/test-eureka")
-    @ResponseStatus(HttpStatus.OK)
-    @Observed(name = "test.eureka",
-            contextualName = "testEureka",
-            lowCardinalityKeyValues = {})
-    public String testEureka(HttpServletRequest request) {
-        Applications applications = discoveryClient.getApplications("DEMO-APP");
-        String url = applications.getRegisteredApplications().get(0).getInstances().get(0).getHomePageUrl();
-        ResponseEntity<String> response = restTemplate.exchange(url + "/api/test/hello", HttpMethod.GET, null, String.class);
-        return response.getBody();
-    }
-
-    @Operation(summary = "Test Auth")
-    @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
-    @GetMapping("/test-auth")
-    @ResponseStatus(HttpStatus.OK)
-    @Observed(name = "test.auth",
-            contextualName = "testAuth",
-            lowCardinalityKeyValues = {})
-    public String testAuth(HttpServletRequest request) {
-        Applications applications = discoveryClient.getApplications("AUTH-SERVICE");
-        String url = applications.getRegisteredApplications().get(0).getInstances().get(0).getHomePageUrl();
-        ResponseEntity<String> response = restTemplate.exchange(url + "/api/auth/is-logged-in/" + UUID.randomUUID(), HttpMethod.GET, null, String.class);
-        return response.getBody();
     }
 }
