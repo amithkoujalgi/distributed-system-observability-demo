@@ -33,7 +33,7 @@ public class TradeRepositoryImpl implements TradeRepository {
 
     @Autowired
     private KafkaConsumer<String, Object> kafkaConsumer;
-    @Value("${infrastructure.topic}")
+    @Value("${infrastructure.topics.orders-placed}")
     private String topic;
 
     @Override

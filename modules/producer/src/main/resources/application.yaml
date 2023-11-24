@@ -28,3 +28,10 @@ infrastructure:
   topics:
     price-changes: stock-prices
     orders-placed: orders
+  redis:
+    host: localhost
+    port: 6379
+    keys:
+      stocks: "stocks"
+      indices: "indices"
+      portfolio: "portfolio"
