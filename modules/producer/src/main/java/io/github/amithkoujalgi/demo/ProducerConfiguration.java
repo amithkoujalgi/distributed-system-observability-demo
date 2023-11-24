@@ -76,7 +76,7 @@ public class ProducerConfiguration {
     }
 
     @Bean
-    public Step step(JobRepository jobRepository, DataSourceTransactionManager transactionManager, ItemReader<Instrument> reader, InstrumentProcessor processor, ItemWriter<Instrument> writer) {
+    public Step generateInstrumentsStep(JobRepository jobRepository, DataSourceTransactionManager transactionManager, ItemReader<Instrument> reader, InstrumentProcessor processor, ItemWriter<Instrument> writer) {
         return new StepBuilder("step1", jobRepository).<Instrument, Instrument>chunk(3, transactionManager).reader(reader).processor(processor).writer(writer).build();
     }
 }
