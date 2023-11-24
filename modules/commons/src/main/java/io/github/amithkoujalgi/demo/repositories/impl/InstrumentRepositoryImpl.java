@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class InstrumentRepositoryImpl implements InstrumentRepository {
     @Autowired
     private RedisTemplate redisTemplate;
@@ -65,32 +65,4 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         }
         return matchedInstruments;
     }
-
-    @Observed(name = "InstrumentRepository.fetchAllIndexInstruments",
-            contextualName = "fetchAllIndexInstruments",
-            lowCardinalityKeyValues = {"description", "Fetches index instrument by keyword from Redis", "classification", "index"}
-    )
-    @Override
-    public List<Instrument> fetchAllIndexInstruments() throws Exception {
-        Set<String> stockKeys = redisTemplate.keys(indicesKeyname + "*");
-        List<Instrument> instrumentList = new ArrayList<>();
-        if (stockKeys != null) {
-            for (String key : stockKeys) {
-                Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-                instrumentList.add(Instrument.fromJSON(Instrument.fromJSON(entries.get("price").toString()).toString()));
-            }
-        }
-        return instrumentList;
-    }
-
-    @Observed(name = "InstrumentRepository.fetchIndexInstrumentByName",
-            contextualName = "fetchIndexInstrumentByName",
-            lowCardinalityKeyValues = {"description", "Fetches index instrument by name from Redis", "classification", "index"}
-    )
-    @Override
-    public Instrument fetchIndexInstrumentByName(String key) throws Exception {
-        Map<Object, Object> map = redisTemplate.opsForHash().entries(indicesKeyname + ":" + key);
-        return Instrument.fromJSON(map.get("price").toString());
-    }
-
 }

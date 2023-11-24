@@ -32,6 +32,10 @@ infrastructure:
       stocks: "stocks"
       indices: "indices"
       portfolio: "portfolio"
+  services:
+    auth:
+      host-name: AUTH-SERVICE
+
 spring:
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
@@ -56,3 +60,5 @@ eureka:
       defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
   instance:
     preferIpAddress: true
+
+

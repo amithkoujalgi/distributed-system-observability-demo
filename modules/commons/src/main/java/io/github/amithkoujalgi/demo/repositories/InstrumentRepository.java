@@ -13,9 +13,4 @@ public interface InstrumentRepository {
     Instrument fetchStockInstrumentByName(String key) throws Exception;
 
     List<Instrument> findStockInstrumentsByKeyword(String keyword) throws Exception;
-
-    List<Instrument> fetchAllIndexInstruments() throws Exception;
-
-    Instrument fetchIndexInstrumentByName(String key) throws Exception;
-
 }
