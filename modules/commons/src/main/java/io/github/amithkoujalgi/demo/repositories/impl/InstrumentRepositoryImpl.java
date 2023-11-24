@@ -26,10 +26,12 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
     public List<Instrument> fetchAllStockInstruments() throws Exception {
         Set<String> stockKeys = redisTemplate.keys(stocksKeyname + "*");
         List<Instrument> instrumentList = new ArrayList<>();
-        for (String key : stockKeys) {
-            Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-            Instrument i = Instrument.fromJSON(entries.get("price").toString());
-            instrumentList.add(i);
+        if (stockKeys != null) {
+            for (String key : stockKeys) {
+                Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
+                Instrument i = Instrument.fromJSON(entries.get("price").toString());
+                instrumentList.add(i);
+            }
         }
         return instrumentList;
     }
@@ -55,9 +57,11 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
     public List<Instrument> fetchAllIndexInstruments() throws Exception {
         Set<String> stockKeys = redisTemplate.keys(indicesKeyname + "*");
         List<Instrument> instrumentList = new ArrayList<>();
-        for (String key : stockKeys) {
-            Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-            instrumentList.add(Instrument.fromJSON(Instrument.fromJSON(entries.get("price").toString()).toString()));
+        if (stockKeys != null) {
+            for (String key : stockKeys) {
+                Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
+                instrumentList.add(Instrument.fromJSON(Instrument.fromJSON(entries.get("price").toString()).toString()));
+            }
         }
         return instrumentList;
     }
