@@ -28,7 +28,6 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         List<Instrument> instrumentList = new ArrayList<>();
         for (String key : stockKeys) {
             Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-//            Instrument i = Instrument.buildFromMap(key.replace(stocksKeyname + ":", ""), entries);
             Instrument i = Instrument.fromJSON(entries.get("price").toString());
             instrumentList.add(i);
         }
@@ -38,7 +37,7 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
     @Override
     public Instrument fetchStockInstrumentByName(String symbol) throws Exception {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(stocksKeyname + ":" + symbol);
-        return Instrument.buildFromMap(symbol, map);
+        return Instrument.fromJSON(map.get("price").toString());
     }
 
     @Override
@@ -58,7 +57,7 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         List<Instrument> instrumentList = new ArrayList<>();
         for (String key : stockKeys) {
             Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-            instrumentList.add(Instrument.buildFromMap(key.replace(indicesKeyname + ":", ""), entries));
+            instrumentList.add(Instrument.fromJSON(Instrument.fromJSON(entries.get("price").toString()).toString()));
         }
         return instrumentList;
     }
@@ -66,7 +65,7 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
     @Override
     public Instrument fetchIndexInstrumentByName(String key) throws Exception {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(indicesKeyname + ":" + key);
-        return Instrument.buildFromMap(key, map);
+        return Instrument.fromJSON(map.get("price").toString());
     }
 
 }
