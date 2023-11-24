@@ -34,7 +34,7 @@ public class KafkaInstrumentReader implements ItemReader<Instrument> {
         List<TopicPartition> partitions = new ArrayList<>();
         partitions.add(partition);
         kafkaConsumer.assign(partitions);
-        kafkaConsumer.seekToBeginning(Collections.singleton(partition));
+//        kafkaConsumer.seekToBeginning(Collections.singleton(partition));
         ConsumerRecords<String, Object> records = kafkaConsumer.poll(Duration.ofMillis(1000));
         if (records.isEmpty()) {
             log.info("No records received from Kafka.");

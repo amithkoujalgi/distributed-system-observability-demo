@@ -24,11 +24,12 @@ public class RedisInstrumentWriter implements ItemWriter<Instrument> {
     private String redisHashKeyPrefixStocks;
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public void write(Chunk<? extends Instrument> chunk) {
         log.info("Writing instruments to Redis...");
         for (Instrument instrument : chunk.getItems()) {
-            redisTemplate.opsForHash().put(redisHashKeyPrefixStocks, instrument.getName(), instrument.toJSON());
+            redisTemplate.opsForHash().put(redisHashKeyPrefixStocks + ":" + instrument.getName(), "price", instrument.toJSON());
         }
     }
 }
