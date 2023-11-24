@@ -2,8 +2,10 @@ server:
   port: 9900
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    max-threads-for-peer-replication: 0
 
 spring:
   datasource:
@@ -11,4 +13,3 @@ spring:
     username: sa
     password: password
     driver-class-name: org.h2.Driver
-    initialization-mode: always

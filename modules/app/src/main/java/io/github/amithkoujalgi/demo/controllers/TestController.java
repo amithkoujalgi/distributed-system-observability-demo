@@ -1,5 +1,7 @@
 package io.github.amithkoujalgi.demo.controllers;
 
+import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Applications;
 import io.micrometer.observation.annotation.Observed;
 import io.micrometer.tracing.Tracer;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,13 +21,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Tag(name = "Test", description = "Test APIs")
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+
+    @Autowired
+    private EurekaClient discoveryClient;
+
     @Autowired
     Tracer tracer;
 
@@ -38,9 +41,9 @@ public class TestController {
     @GetMapping("/hello")
     @ResponseStatus(HttpStatus.OK)
     @Observed(name = "test.api",
-            contextualName = "testing",
-            lowCardinalityKeyValues = {"test1", "test2"})
-    public List<Integer> test(HttpServletRequest request) {
+            contextualName = "test",
+            lowCardinalityKeyValues = {"hello", "world"})
+    public String test(HttpServletRequest request) {
 //        Span newSpan = this.tracer.nextSpan().name("test");
 //        try (Tracer.SpanInScope ws = this.tracer.withSpan(newSpan.start())) {
 //            newSpan.event("test-evt");
@@ -48,6 +51,21 @@ public class TestController {
 //            newSpan.end();
 //        }
 //        ResponseEntity<String> response = restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, null, String.class);
-        return new ArrayList<>();
+        return "world";
+    }
+
+
+    @Operation(summary = "Test Eureka")
+    @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
+    @GetMapping("/test-eureka")
+    @ResponseStatus(HttpStatus.OK)
+    @Observed(name = "test.eureka",
+            contextualName = "testEureka",
+            lowCardinalityKeyValues = {})
+    public String testEureka(HttpServletRequest request) {
+        Applications applications = discoveryClient.getApplications("DEMO-APP");
+        String url = applications.getRegisteredApplications().get(0).getInstances().get(0).getHomePageUrl();
+        ResponseEntity<String> response = restTemplate.exchange(url + "/api/test/hello", HttpMethod.GET, null, String.class);
+        return response.getBody();
     }
 }
