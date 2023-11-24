@@ -113,4 +113,9 @@ public class Instrument {
         String trend = getRandomTrend();
         return new Instrument(name, timestamp, lastTradedPrice, trend);
     }
+
+    public static Instrument fromJSON(String jsonString) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(jsonString, Instrument.class);
+    }
 }
