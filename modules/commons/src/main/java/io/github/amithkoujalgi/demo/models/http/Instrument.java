@@ -115,7 +115,6 @@ public class Instrument {
     }
 
     public static Instrument fromJSON(String jsonString) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonString, Instrument.class);
+        return new ObjectMapper().readValue(jsonString, Instrument.class);
     }
 }

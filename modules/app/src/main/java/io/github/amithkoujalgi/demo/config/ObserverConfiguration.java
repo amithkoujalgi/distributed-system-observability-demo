@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration(proxyBeanMethods = false)
-class MyConfiguration {
+class ObserverConfiguration {
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();

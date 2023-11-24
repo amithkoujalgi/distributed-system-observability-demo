@@ -28,7 +28,8 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         List<Instrument> instrumentList = new ArrayList<>();
         for (String key : stockKeys) {
             Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
-            Instrument i = Instrument.buildFromMap(key.replace(stocksKeyname + ":", ""), entries);
+//            Instrument i = Instrument.buildFromMap(key.replace(stocksKeyname + ":", ""), entries);
+            Instrument i = Instrument.fromJSON(entries.get("price").toString());
             instrumentList.add(i);
         }
         return instrumentList;
