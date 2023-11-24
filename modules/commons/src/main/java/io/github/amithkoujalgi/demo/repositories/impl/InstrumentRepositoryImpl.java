@@ -24,7 +24,8 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
     private String indicesKeyname;
 
     @Observed(name = "InstrumentRepository.fetchAllStockInstruments",
-            contextualName = "fetchAllStockInstruments"
+            contextualName = "fetchAllStockInstruments",
+            lowCardinalityKeyValues = {"description", "Fetches all stock instruments from Redis"}
     )
     @Override
     public List<Instrument> fetchAllStockInstruments() throws Exception {
