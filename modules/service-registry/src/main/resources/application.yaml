@@ -1,0 +1,14 @@
+server:
+  port: 9900
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+    initialization-mode: always

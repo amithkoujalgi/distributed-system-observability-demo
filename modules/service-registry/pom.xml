@@ -10,9 +10,9 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>distributed-processing-demo-app</artifactId>
-    <name>Distributed Processing Demo App</name>
-    <description>Distributed Processing Demo App</description>
+    <artifactId>distributed-processing-demo-service-registry</artifactId>
+    <name>Distributed Processing Demo Service Registry</name>
+    <description>Distributed Processing Demo Service Registry</description>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -25,16 +25,6 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.openapi-starter-webmvc-ui}</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.amithkoujalgi</groupId>
-            <artifactId>distributed-processing-demo-commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -72,14 +62,28 @@
             <groupId>io.zipkin.brave</groupId>
             <artifactId>brave-context-slf4j</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka-server</artifactId>
-            <version>1.4.7.RELEASE</version>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
     </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2022.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
