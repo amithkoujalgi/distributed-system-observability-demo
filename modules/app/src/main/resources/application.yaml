@@ -16,7 +16,6 @@ management:
       percentiles-histogram:
         http:
           requests: true
-  zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
 springdoc:
@@ -46,6 +45,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: demo-app
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'

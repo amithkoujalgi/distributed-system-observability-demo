@@ -2,6 +2,7 @@ package io.github.amithkoujalgi.demo.repositories.impl;
 
 import io.github.amithkoujalgi.demo.models.http.Instrument;
 import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,6 +23,9 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
     @Value("${infrastructure.redis.keys.indices}")
     private String indicesKeyname;
 
+    @Observed(name = "InstrumentRepository.fetchAllStockInstruments",
+            contextualName = "fetchAllStockInstruments"
+    )
     @Override
     public List<Instrument> fetchAllStockInstruments() throws Exception {
         Set<String> stockKeys = redisTemplate.keys(stocksKeyname + "*");
