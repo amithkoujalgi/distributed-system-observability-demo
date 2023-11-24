@@ -37,6 +37,7 @@
         <module>modules/commons</module>
         <module>modules/service-registry</module>
         <module>modules/app</module>
+        <module>modules/auth-service</module>
         <module>modules/producer</module>
         <module>modules/consumer</module>
         <module>modules/worker</module>

@@ -1,5 +1,5 @@
 server:
-  port: 9902
+  port: 9901
 management:
   endpoints:
     enabled-by-default: true
@@ -45,7 +45,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
-    name: app-service
+    name: auth-service
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'

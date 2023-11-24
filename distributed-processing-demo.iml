@@ -16,6 +16,9 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/service-registry/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/service-registry/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/modules/service-registry/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/auth-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/auth-service/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/auth-service/src/test/java" isTestSource="true" />
     </content>
   </component>
 </module>
