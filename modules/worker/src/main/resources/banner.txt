@@ -1,3 +1,0 @@
-Demo Worker
-
-Using Spring Boot: ${spring-boot.version}

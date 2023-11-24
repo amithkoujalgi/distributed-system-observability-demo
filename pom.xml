@@ -41,7 +41,6 @@
         <module>modules/order-service</module>
         <module>modules/producer</module>
         <module>modules/consumer</module>
-        <module>modules/worker</module>
     </modules>
 
     <dependencyManagement>
