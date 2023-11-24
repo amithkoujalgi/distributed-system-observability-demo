@@ -25,6 +25,11 @@ public class KafkaInstrumentWriter implements ItemWriter<Instrument> {
 
     @Override
     public void write(Chunk<? extends Instrument> chunk) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         log.info("Writing instruments to Kafka...");
         for (Instrument instrument : chunk.getItems()) {
             CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topicPriceUpdates, instrument.getName(), instrument);
