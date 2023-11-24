@@ -25,7 +25,7 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
 
     @Observed(name = "InstrumentRepository.fetchAllStockInstruments",
             contextualName = "fetchAllStockInstruments",
-            lowCardinalityKeyValues = {"description", "Fetches all stock instruments from Redis"}
+            lowCardinalityKeyValues = {"description", "Fetches all stock instruments from Redis", "classification", "stock"}
     )
     @Override
     public List<Instrument> fetchAllStockInstruments() throws Exception {
@@ -41,12 +41,20 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         return instrumentList;
     }
 
+    @Observed(name = "InstrumentRepository.fetchStockInstrumentByName",
+            contextualName = "fetchStockInstrumentByName",
+            lowCardinalityKeyValues = {"description", "Fetches stock instrument by name from Redis", "classification", "stock"}
+    )
     @Override
     public Instrument fetchStockInstrumentByName(String symbol) throws Exception {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(stocksKeyname + ":" + symbol);
         return Instrument.fromJSON(map.get("price").toString());
     }
 
+    @Observed(name = "InstrumentRepository.findStockInstrumentsByKeyword",
+            contextualName = "findStockInstrumentsByKeyword",
+            lowCardinalityKeyValues = {"description", "Fetches stock instrument by keyword from Redis", "classification", "stock"}
+    )
     @Override
     public List<Instrument> findStockInstrumentsByKeyword(String keyword) throws Exception {
         List<Instrument> matchedInstruments = new ArrayList<>();
@@ -58,6 +66,10 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         return matchedInstruments;
     }
 
+    @Observed(name = "InstrumentRepository.fetchAllIndexInstruments",
+            contextualName = "fetchAllIndexInstruments",
+            lowCardinalityKeyValues = {"description", "Fetches index instrument by keyword from Redis", "classification", "index"}
+    )
     @Override
     public List<Instrument> fetchAllIndexInstruments() throws Exception {
         Set<String> stockKeys = redisTemplate.keys(indicesKeyname + "*");
@@ -71,6 +83,10 @@ public class InstrumentRepositoryImpl implements InstrumentRepository {
         return instrumentList;
     }
 
+    @Observed(name = "InstrumentRepository.fetchIndexInstrumentByName",
+            contextualName = "fetchIndexInstrumentByName",
+            lowCardinalityKeyValues = {"description", "Fetches index instrument by name from Redis", "classification", "index"}
+    )
     @Override
     public Instrument fetchIndexInstrumentByName(String key) throws Exception {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(indicesKeyname + ":" + key);
