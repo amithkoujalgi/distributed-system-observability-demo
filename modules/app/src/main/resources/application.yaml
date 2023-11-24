@@ -6,7 +6,6 @@ management:
     web:
       exposure:
         include: '*'
-        exclude: 'info,health'
   tracing:
     enabled: true
     sampling:
@@ -53,5 +52,7 @@ logging:
 
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
+  instance:
+    preferIpAddress: true
