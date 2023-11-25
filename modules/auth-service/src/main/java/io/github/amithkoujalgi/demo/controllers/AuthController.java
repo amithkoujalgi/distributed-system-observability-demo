@@ -41,5 +41,4 @@ public class AuthController {
         UUID uuid = UUID.fromString(token);
         return new UserLoginStatus(true);
     }
-
 }
