@@ -5,7 +5,7 @@ import io.github.amithkoujalgi.demo.models.http.Order;
 import io.github.amithkoujalgi.demo.models.http.PortfolioItem;
 import io.github.amithkoujalgi.demo.models.http.PortfolioItemAverage;
 import io.github.amithkoujalgi.demo.models.http.UserOrder;
-import io.github.amithkoujalgi.demo.repositories.TradeRepository;
+import io.github.amithkoujalgi.demo.repositories.TradeAPI;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-public class TradeRepositoryImpl implements TradeRepository {
+public class TradeAPIImpl implements TradeAPI {
     @Autowired
     private RedisTemplate redisTemplate;
 

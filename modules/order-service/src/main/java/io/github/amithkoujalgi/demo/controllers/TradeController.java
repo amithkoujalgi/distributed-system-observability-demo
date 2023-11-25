@@ -3,7 +3,7 @@ package io.github.amithkoujalgi.demo.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.amithkoujalgi.demo.entities.PortfolioInstrument;
 import io.github.amithkoujalgi.demo.models.http.*;
-import io.github.amithkoujalgi.demo.repositories.TradeRepository;
+import io.github.amithkoujalgi.demo.repositories.TradeAPI;
 import io.github.amithkoujalgi.demo.services.PortfolioService;
 import io.github.amithkoujalgi.demo.util.AuthTokenValidator;
 import io.micrometer.observation.annotation.Observed;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @RequestMapping("/api/trade")
 public class TradeController {
     @Autowired
-    private TradeRepository tradeRepository;
+    private TradeAPI tradeAPI;
     @Autowired
     PortfolioService portfolioService;
 
@@ -45,7 +45,7 @@ public class TradeController {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
                 Order newOrder = new Order(order.getInstrument(), new Date(System.currentTimeMillis()), order.getPrice(), order.getQuantity(), order.getUserId(), UUID.randomUUID().toString(), order.getType());
-                return tradeRepository.placeOrder(newOrder);
+                return tradeAPI.placeOrder(newOrder);
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }
@@ -64,7 +64,7 @@ public class TradeController {
     public List<UserOrder> listOrders(@RequestHeader(value = "access-token") String accessToken, @PathVariable String userId) {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
-                return tradeRepository.listOrdersOfUser(userId);
+                return tradeAPI.listOrdersOfUser(userId);
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }
@@ -83,7 +83,7 @@ public class TradeController {
     public List<PortfolioItem> getPortfolioOfUser(@RequestHeader(value = "access-token") String accessToken, @PathVariable String userId) throws JsonProcessingException {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
-                return tradeRepository.getPortfolioOfUser(userId);
+                return tradeAPI.getPortfolioOfUser(userId);
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }
@@ -102,7 +102,7 @@ public class TradeController {
     public List<PortfolioItemAverage> getPortfolioWithInstrumentPriceAveragesOfUser(@RequestHeader(value = "access-token") String accessToken, @PathVariable String userId) throws JsonProcessingException {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
-                return tradeRepository.getPortfolioWithInstrumentPriceAveragesOfUser(userId);
+                return tradeAPI.getPortfolioWithInstrumentPriceAveragesOfUser(userId);
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }
