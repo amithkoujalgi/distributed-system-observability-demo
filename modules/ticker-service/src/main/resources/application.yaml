@@ -24,7 +24,7 @@ springdoc:
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
   topics:
-    orders-placed: stock-transactions
+    orders-placed: orders
   redis:
     host: localhost
     port: 6379

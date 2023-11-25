@@ -17,7 +17,6 @@ public interface TradeRepository {
 
     List<UserOrder> listOrdersOfUser(String userId);
 
-
     List<PortfolioItem> getPortfolioOfUser(String userId) throws JsonProcessingException;
 
     List<PortfolioItemAverage> getPortfolioWithInstrumentPriceAveragesOfUser(String userId) throws JsonProcessingException;

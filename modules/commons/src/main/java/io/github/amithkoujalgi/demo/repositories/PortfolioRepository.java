@@ -9,5 +9,4 @@ import java.util.List;
 public interface PortfolioRepository extends JpaRepository<PortfolioInstrument, Long> {
     // custom query methods
     List<PortfolioInstrument> findAllByUser_Id(Long userId);
-
 }

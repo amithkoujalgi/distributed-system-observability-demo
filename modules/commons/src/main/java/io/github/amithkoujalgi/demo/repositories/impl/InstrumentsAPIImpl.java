@@ -1,7 +1,7 @@
 package io.github.amithkoujalgi.demo.repositories.impl;
 
 import io.github.amithkoujalgi.demo.models.http.Instrument;
-import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
+import io.github.amithkoujalgi.demo.repositories.InstrumentsAPI;
 import io.micrometer.observation.annotation.Observed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class InstrumentRepositoryImpl implements InstrumentRepository {
+public class InstrumentsAPIImpl implements InstrumentsAPI {
     @Autowired
     private RedisTemplate redisTemplate;
 

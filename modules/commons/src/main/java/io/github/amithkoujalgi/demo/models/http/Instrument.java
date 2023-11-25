@@ -13,7 +13,6 @@ public class Instrument {
     private Date timestamp;
     private Double lastTradedPrice;
     private String trend;
-
     public Instrument() {
     }
 

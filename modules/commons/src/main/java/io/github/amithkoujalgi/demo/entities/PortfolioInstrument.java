@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "portfolio_instrument")
 public class PortfolioInstrument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +21,17 @@ public class PortfolioInstrument {
     private BigDecimal quantity;
     private BigDecimal price;
     private Timestamp timestamp;
+
+    public PortfolioInstrument(){
+
+    }
+    public PortfolioInstrument(User user, Instrument instrument, BigDecimal quantity, BigDecimal price, Timestamp timestamp) {
+        this.user = user;
+        this.instrument = instrument;
+        this.quantity = quantity;
+        this.price = price;
+        this.timestamp = timestamp;
+    }
 
     public Long getId() {
         return id;

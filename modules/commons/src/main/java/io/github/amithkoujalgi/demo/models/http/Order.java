@@ -13,7 +13,6 @@ public class Order {
     private String userId;
     private String orderId;
     private OrderType type;
-
     public Order() {
     }
 
@@ -94,5 +93,9 @@ public class Order {
 
     public void setType(OrderType type) {
         this.type = type;
+    }
+
+    public static Order fromJSON(String jsonString) throws JsonProcessingException {
+        return new ObjectMapper().readValue(jsonString, Order.class);
     }
 }
