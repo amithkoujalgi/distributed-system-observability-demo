@@ -43,6 +43,10 @@ public class ConsumerCLIRunner implements CommandLineRunner {
         System.out.println("Received price change: " + message);
         try {
             Instrument instrument = Instrument.fromJSON(message);
+            if (instrumentRepository.findByName(instrument.getName()) == null) {
+                io.github.amithkoujalgi.demo.entities.Instrument instrumentEntity = new io.github.amithkoujalgi.demo.entities.Instrument(instrument.getName());
+                instrumentRepository.save(instrumentEntity);
+            }
             redisTemplate.opsForHash().put(redisHashKeyPrefixStocks + ":" + instrument.getName(), "price", instrument.toJSON());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -55,10 +59,12 @@ public class ConsumerCLIRunner implements CommandLineRunner {
         System.out.println("Received order: " + message);
         try {
             Order order = Order.fromJSON(message);
-
             User user = userRepository.findAllById(Long.parseLong(order.getUserId()));
             io.github.amithkoujalgi.demo.entities.Instrument instrument = instrumentRepository.findByName(order.getInstrument());
-
+            if (user == null || instrument == null) {
+                System.out.println("Invalid user ID or instrument ID. Ignoring...");
+                return;
+            }
             PortfolioInstrument portfolioInstrument = new PortfolioInstrument(user, instrument, new BigDecimal(order.getQuantity()), BigDecimal.valueOf(order.getPrice()), new Timestamp(order.getTimestamp().getTime()));
             portfolioRepository.save(portfolioInstrument);
         } catch (Exception e) {

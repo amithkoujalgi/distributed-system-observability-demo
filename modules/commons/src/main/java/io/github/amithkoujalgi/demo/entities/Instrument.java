@@ -10,6 +10,14 @@ public class Instrument {
     private Long id;
     private String name;
 
+    public Instrument() {
+
+    }
+
+    public Instrument(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
