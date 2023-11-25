@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: consumer
   batch:
     jdbc:
       initialize-schema: always
@@ -35,3 +37,24 @@ infrastructure:
       stocks: "stocks"
       indices: "indices"
       portfolio: "portfolio"
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          requests: true
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans

@@ -8,11 +8,13 @@ import io.github.amithkoujalgi.demo.models.http.Order;
 import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
 import io.github.amithkoujalgi.demo.repositories.PortfolioRepository;
 import io.github.amithkoujalgi.demo.repositories.UserRepository;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -20,7 +22,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @SuppressWarnings("rawtypes")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo.config", "io.github.amithkoujalgi.demo.repositories"})
 public class ConsumerCLIRunner implements CommandLineRunner {
     @Autowired
     private RedisTemplate redisTemplate;
@@ -39,6 +41,9 @@ public class ConsumerCLIRunner implements CommandLineRunner {
 
     @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.price-changes}", groupId = "consumer-group-stock-price-updates")
+    @Observed(name = "ConsumerCLIRunner.listenPriceChanges",
+            contextualName = "listenPriceChanges",
+            lowCardinalityKeyValues = {})
     public void listenPriceChanges(String message) {
         System.out.println("Received price change: " + message);
         try {
@@ -55,6 +60,9 @@ public class ConsumerCLIRunner implements CommandLineRunner {
 
     @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.orders-placed}", groupId = "consumer-group-stock-price-updates")
+    @Observed(name = "ConsumerCLIRunner.listenOrdersPlaced",
+            contextualName = "listenOrdersPlaced",
+            lowCardinalityKeyValues = {})
     public void listenOrdersPlaced(String message) {
         System.out.println("Received order: " + message);
         try {
@@ -73,7 +81,9 @@ public class ConsumerCLIRunner implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ConsumerCLIRunner.class, args);
+        new SpringApplicationBuilder(ConsumerCLIRunner.class)
+                .web(WebApplicationType.NONE)
+                .run(args);
     }
 
     @Override
