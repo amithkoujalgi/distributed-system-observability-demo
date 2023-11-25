@@ -2,6 +2,7 @@ package io.github.amithkoujalgi.demo.controllers;
 
 import io.github.amithkoujalgi.demo.entities.User;
 import io.github.amithkoujalgi.demo.repositories.UserRepository;
+import io.micrometer.observation.annotation.Observed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,6 +23,9 @@ public class UserController {
     UserRepository userRepository;
 
     @Operation(summary = "Get users")
+    @Observed(name = "UserController.allUsers",
+            contextualName = "allUsers",
+            lowCardinalityKeyValues = {})
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
@@ -30,6 +34,9 @@ public class UserController {
     }
 
     @Operation(summary = "Add user")
+    @Observed(name = "UserController.addUser",
+            contextualName = "addUser",
+            lowCardinalityKeyValues = {})
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
@@ -37,5 +44,4 @@ public class UserController {
         userRepository.save(user);
         return user;
     }
-
 }

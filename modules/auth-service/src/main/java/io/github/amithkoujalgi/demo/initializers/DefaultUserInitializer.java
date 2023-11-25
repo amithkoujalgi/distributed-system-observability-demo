@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultUserInitializer implements InitializingBean {
-
     @Autowired
     private UserRepository userRepository;
-
     @Override
     public void afterPropertiesSet() throws Exception {
         // Check if the default user already exists
