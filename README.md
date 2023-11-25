@@ -40,4 +40,6 @@ With all services up, access:
 | Order Service           | http://localhost:9903/docs |                                          |
 
 References:
+
+https://stackoverflow.com/questions/76418005/not-able-to-trace-database-requests-with-spring-boot-3-and-micrometer
 https://github.com/micrometer-metrics/micrometer-samples/blob/main/micrometer-samples-boot3-database/src/main/java/io/micrometer/boot3/samples/db/SampleController.java
