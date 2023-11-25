@@ -33,6 +33,7 @@ With all services up, access:
 | Postgres UI             | http://localhost:5050      | U: `pgadmin4@pgadmin.org`<br/>P: `admin` |
 | Kafka UI                | http://localhost:8080      |                                          |
 | Redis UI                | http://localhost:8050      |                                          |
+| Zipkin UI               | http://localhost:9411      |                                          |
 | Eureka Service Registry | http://localhost:9900      |                                          |
 | Auth Service            | http://localhost:9901/docs |                                          |
 | Ticker Service          | http://localhost:9902/docs |                                          |
