@@ -13,6 +13,6 @@ public class PortfolioService {
     private PortfolioRepository portfolioRepository;
 
     public List<PortfolioInstrument> getAllPortfolioInstrumentsByUserId(Long userId) {
-        return portfolioRepository.findAllByUser_Id(userId);
+        return portfolioRepository.findByUser_Id(userId);
     }
 }

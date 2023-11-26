@@ -1,5 +1,6 @@
 package io.github.amithkoujalgi.demo.config;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationPredicate;
 import io.micrometer.observation.ObservationRegistry;
@@ -23,6 +24,10 @@ class ObserverConfiguration {
         return new ObservedAspect(observationRegistry);
     }
 
+//    @Bean
+//    public MeterRegistry meterRegistry() {
+//        return new PrometheusMeterRegistry();
+//    }
     private Observation.Context getRootObservationContext(Observation.Context current) {
         ObservationView parent = current.getParentObservation();
         if (parent == null) {

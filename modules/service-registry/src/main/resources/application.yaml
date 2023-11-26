@@ -17,4 +17,6 @@ spring:
     username: sa
     password: password
     driver-class-name: org.h2.Driver
+  application:
+    name: service-registry
 

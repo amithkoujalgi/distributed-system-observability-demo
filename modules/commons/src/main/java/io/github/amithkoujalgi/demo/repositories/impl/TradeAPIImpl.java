@@ -1,10 +1,12 @@
 package io.github.amithkoujalgi.demo.repositories.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.github.amithkoujalgi.demo.entities.PortfolioInstrument;
 import io.github.amithkoujalgi.demo.models.http.Order;
 import io.github.amithkoujalgi.demo.models.http.PortfolioItem;
 import io.github.amithkoujalgi.demo.models.http.PortfolioItemAverage;
 import io.github.amithkoujalgi.demo.models.http.UserOrder;
+import io.github.amithkoujalgi.demo.repositories.PortfolioRepository;
 import io.github.amithkoujalgi.demo.repositories.TradeAPI;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -22,9 +24,13 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("rawtypes")
 public class TradeAPIImpl implements TradeAPI {
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    PortfolioRepository portfolioRepository;
 
     @Value("${infrastructure.redis.keys.portfolio}")
     private String userPortfolioKeyname;
@@ -74,18 +80,27 @@ public class TradeAPIImpl implements TradeAPI {
         return ordersPlaced;
     }
 
-    @Override
-    public List<PortfolioItem> getPortfolioOfUser(String userId) throws JsonProcessingException {
+    private List<PortfolioItem> userPortfolioFromRedis(String userId) throws JsonProcessingException {
         Set<String> stockKeys = redisTemplate.keys(userPortfolioKeyname + "*");
         List<PortfolioItem> portfolioItemList = new ArrayList<>();
+        assert stockKeys != null;
         for (String key : stockKeys) {
             List<String> portfolioItems = redisTemplate.opsForList().range(key, 0, 1);
+            assert portfolioItems != null;
             for (String item : portfolioItems) {
                 PortfolioItem portfolioItem = PortfolioItem.fromJSONString(item);
                 portfolioItemList.add(portfolioItem);
             }
         }
         return portfolioItemList;
+    }
+
+    @Override
+    public List<PortfolioItem> getPortfolioOfUser(String userId) {
+        List<PortfolioInstrument> instruments = portfolioRepository.findByUser_Id(Long.parseLong(userId));
+        List<PortfolioItem> items = new ArrayList<>();
+        instruments.forEach(x -> items.add(new PortfolioItem(x.getInstrument().getName(), x.getQuantity().intValue(), x.getPrice().doubleValue(), x.getTimestamp())));
+        return items;
     }
 
     @Override
