@@ -46,6 +46,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: auth-service
+  boot:
+    admin:
+      client:
+        url: http://localhost:9800
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
