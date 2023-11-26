@@ -36,6 +36,7 @@
     <modules>
         <module>modules/commons</module>
         <module>modules/service-registry</module>
+        <module>modules/spring-admin</module>
         <module>modules/auth-service</module>
         <module>modules/ticker-service</module>
         <module>modules/order-service</module>
