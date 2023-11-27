@@ -45,3 +45,4 @@ References:
 https://spring.io/guides/tutorials/metrics-and-tracing/
 https://stackoverflow.com/questions/76418005/not-able-to-trace-database-requests-with-spring-boot-3-and-micrometer
 https://github.com/micrometer-metrics/micrometer-samples/blob/main/micrometer-samples-boot3-database/src/main/java/io/micrometer/boot3/samples/db/SampleController.java
+https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
