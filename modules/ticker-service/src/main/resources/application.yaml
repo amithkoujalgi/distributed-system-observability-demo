@@ -1,6 +1,9 @@
 server:
   port: 9902
 management:
+  endpoint:
+    metrics:
+      enabled: true
   endpoints:
     enabled-by-default: true
     web:
@@ -59,6 +62,10 @@ spring:
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: OFF
 
 eureka:
   client:

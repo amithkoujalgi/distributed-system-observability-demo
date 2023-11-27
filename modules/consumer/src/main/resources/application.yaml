@@ -1,3 +1,5 @@
+server:
+  port: 9905
 spring:
   application:
     name: consumer
@@ -6,6 +8,10 @@ spring:
       initialize-schema: always
   main:
     allow-bean-definition-overriding: true
+  boot:
+    admin:
+      client:
+        url: http://localhost:9800
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
     username: root
@@ -25,6 +31,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 producer:
   stock-instruments: "GOOGL,AAPL,TSLA,NVDA,AMD,AMZN,INTC,MSFT,UBER,ADBE,CSCO"
+
+springdoc:
+  swagger-ui:
+    path: /docs
+    tryItOutEnabled: true
+
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:9092}
   topics:
@@ -58,3 +70,18 @@ management:
           requests: true
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: OFF
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
+  instance:
+    preferIpAddress: true

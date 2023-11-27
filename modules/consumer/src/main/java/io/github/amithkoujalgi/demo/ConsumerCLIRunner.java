@@ -21,8 +21,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SuppressWarnings("rawtypes")
 @SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo.config", "io.github.amithkoujalgi.demo.repositories"})
+@EnableDiscoveryClient
 public class ConsumerCLIRunner implements CommandLineRunner {
     @Autowired
     private RedisTemplate redisTemplate;

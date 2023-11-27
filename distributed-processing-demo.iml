@@ -9,7 +9,6 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/worker/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/worker/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/modules/worker/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/producer/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/producer/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/modules/producer/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/modules/service-registry/src/main/resources" type="java-resource" />
