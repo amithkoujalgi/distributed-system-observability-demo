@@ -35,6 +35,7 @@ With all services up, access:
 | Redis UI                | http://localhost:8050      |                                          |
 | Zipkin UI               | http://localhost:9411      |                                          |
 | Eureka Service Registry | http://localhost:9900      |                                          |
+| Spring Boot Admin       | http://localhost:9900      |                                          |
 | Auth Service            | http://localhost:9901/docs |                                          |
 | Ticker Service          | http://localhost:9902/docs |                                          |
 | Order Service           | http://localhost:9903/docs |                                          |
