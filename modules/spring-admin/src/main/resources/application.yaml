@@ -1,35 +1,18 @@
-spring:
-  application:
-    name: spring-admin
-  profiles:
-    default: local
-  output:
-    ansi:
-      enabled: always
-  jackson:
-    serialization:
-      indent_output: true
-    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
-  mvc:
-    problemdetails:
-      enabled: true
-
-server:
-  port: 9800
-  tomcat:
-    mbeanregistry:
-      enabled: true
-
+logging:
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: false
 management:
+  endpoint:
+    env:
+      show-values: always
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
-    env:
-      show-values: always
+        include: '*'
   info:
     env:
       enabled: true
@@ -37,19 +20,19 @@ management:
       enabled: true
     os:
       enabled: true
-  observations:
-    key-values:
-      org: ${spring.application.org}
   metrics:
-    tags:
-      application: ${spring.application.name}
-      org: ${spring.application.org}
-      profiles: ${spring.profiles.active}
     distribution:
       percentiles-histogram:
         http:
           server:
             requests: true
+    tags:
+      application: ${spring.application.name}
+      org: ${spring.application.org}
+      profiles: ${spring.profiles.active}
+  observations:
+    key-values:
+      org: ${spring.application.org}
   prometheus:
     metrics:
       export:
@@ -57,13 +40,26 @@ management:
   tracing:
     sampling:
       probability: 1.0
-
+server:
+  port: 9800
+  tomcat:
+    mbeanregistry:
+      enabled: true
+spring:
+  application:
+    name: spring-admin
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+    serialization:
+      indent_output: true
+  mvc:
+    problemdetails:
+      enabled: true
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    default: local
 spring.cloud.discovery.client:
   composite-indicator:
     enabled: false
-
-logging:
-  level:
-    com.netflix.discovery: OFF
-  file:
-    name: ${spring.application.home:.}/logs/${spring.application.name}.log
