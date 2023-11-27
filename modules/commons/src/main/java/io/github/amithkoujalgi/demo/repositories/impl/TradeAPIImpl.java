@@ -13,6 +13,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.errors.RecordDeserializationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -42,12 +44,14 @@ public class TradeAPIImpl implements TradeAPI {
     @Value("${infrastructure.topics.orders-placed}")
     private String topic;
 
+    private static final Logger log = LoggerFactory.getLogger(TradeAPIImpl.class);
+
     @Override
     public boolean placeOrder(Order order) {
         CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topic, order.getUserId(), order);
         // if we need to wait for ack
         //  while (!msg.isDone()) {
-        //       System.out.println("waiting for ack");
+        //       log.info("waiting for ack");
         //  }
         return true;
     }

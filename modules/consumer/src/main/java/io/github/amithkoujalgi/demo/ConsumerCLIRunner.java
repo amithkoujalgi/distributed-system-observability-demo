@@ -9,6 +9,8 @@ import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
 import io.github.amithkoujalgi.demo.repositories.PortfolioRepository;
 import io.github.amithkoujalgi.demo.repositories.UserRepository;
 import io.micrometer.observation.annotation.Observed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -41,13 +43,16 @@ public class ConsumerCLIRunner implements CommandLineRunner {
     @Autowired
     InstrumentRepository instrumentRepository;
 
+    private static final Logger log = LoggerFactory.getLogger(ConsumerCLIRunner.class);
+
+
     @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.price-changes}", groupId = "consumer-group-stock-price-updates")
     @Observed(name = "ConsumerCLIRunner.listenPriceChanges",
             contextualName = "listenPriceChanges",
             lowCardinalityKeyValues = {})
     public void listenPriceChanges(String message) {
-        System.out.println("Received price change: " + message);
+        log.info("Received price change: " + message);
         try {
             Instrument instrument = Instrument.fromJSON(message);
             if (instrumentRepository.findByName(instrument.getName()) == null) {
@@ -66,13 +71,13 @@ public class ConsumerCLIRunner implements CommandLineRunner {
             contextualName = "listenOrdersPlaced",
             lowCardinalityKeyValues = {})
     public void listenOrdersPlaced(String message) {
-        System.out.println("Received order: " + message);
+        log.info("Received order: " + message);
         try {
             Order order = Order.fromJSON(message);
             User user = userRepository.findAllById(Long.parseLong(order.getUserId()));
             io.github.amithkoujalgi.demo.entities.Instrument instrument = instrumentRepository.findByName(order.getInstrument());
             if (user == null || instrument == null) {
-                System.out.println("Invalid user ID or instrument ID. Ignoring...");
+                log.info("Invalid user ID or instrument ID. Ignoring...");
                 return;
             }
             PortfolioInstrument portfolioInstrument = new PortfolioInstrument(user, instrument, new BigDecimal(order.getQuantity()), BigDecimal.valueOf(order.getPrice()), new Timestamp(order.getTimestamp().getTime()));
@@ -84,12 +89,12 @@ public class ConsumerCLIRunner implements CommandLineRunner {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(ConsumerCLIRunner.class)
-                .web(WebApplicationType.NONE)
+//                .web(WebApplicationType.NONE)
                 .run(args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Starting consumer app...");
+        log.info("Starting consumer app...");
     }
 }
