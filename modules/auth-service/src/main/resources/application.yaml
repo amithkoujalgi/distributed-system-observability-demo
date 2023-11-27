@@ -1,6 +1,12 @@
 server:
   port: 9901
+
 management:
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
   endpoints:
     enabled-by-default: true
     web:
@@ -33,6 +39,8 @@ infrastructure:
       indices: "indices"
       portfolio: "portfolio"
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
     username: root

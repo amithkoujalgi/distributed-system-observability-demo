@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SuppressWarnings("rawtypes")
-@SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo.config", "io.github.amithkoujalgi.demo.repositories"})
+@SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo"})
 @EnableDiscoveryClient
 public class ConsumerCLIRunner implements CommandLineRunner {
     @Autowired

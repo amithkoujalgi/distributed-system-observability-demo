@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo.config", "io.github.amithkoujalgi.demo.controllers", "io.github.amithkoujalgi.demo.repositories", "io.github.amithkoujalgi.demo.initializers"})
+@SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo"})
 @OpenAPIDefinition(info = @Info(title = "Ticker Service"))
 @EnableDiscoveryClient
 public class TickerServiceApplication {

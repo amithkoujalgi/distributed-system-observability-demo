@@ -1,7 +1,10 @@
 server:
   port: 9902
+
 management:
   endpoint:
+    health:
+      show-details: always
     metrics:
       enabled: true
   endpoints:
@@ -40,6 +43,8 @@ infrastructure:
       host-name: AUTH-SERVICE
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
     username: root
