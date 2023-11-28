@@ -30,3 +30,6 @@ replay_pid*
 /target/
 **/target/
 !distributed-processing-demo.iml
+
+*.gz
+**/*.gz

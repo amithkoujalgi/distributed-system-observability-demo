@@ -1,12 +1,15 @@
 package io.github.amithkoujalgi.demo.util;
 
 import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Application;
 import com.netflix.discovery.shared.Applications;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class AuthTokenValidator {
     private final RestTemplate restTemplate;
