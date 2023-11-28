@@ -19,11 +19,21 @@ public class AuthTokenValidator {
         this.authServiceAppName = authServiceAppName;
     }
 
-    public boolean validateAuthToken(String token) {
-        Applications applications = discoveryClient.getApplications(authServiceAppName);
-        String url = applications.getRegisteredApplications().get(0).getInstances().get(0).getHomePageUrl();
-        ResponseEntity<TokenValidatorResponse> response = restTemplate.exchange(url + "/api/auth/is-logged-in/" + token, HttpMethod.GET, null, TokenValidatorResponse.class);
-        return Objects.requireNonNull(response.getBody()).getStatus();
+    public boolean validateAuthToken(String token) throws Exception {
+        List<Application> x = discoveryClient.getApplications().getRegisteredApplications();
+        Optional<Application> authApp = x.stream()
+                .filter(app -> authServiceAppName.equals(app.getName()))
+                .findFirst();
+        if (authApp.isPresent()) {
+            Application app = authApp.get();
+            String url = app.getInstances().get(0).getHomePageUrl();
+            System.out.println("+++URL: "+url);
+            ResponseEntity<TokenValidatorResponse> response = restTemplate.exchange(url + "/api/auth/is-logged-in/" + token, HttpMethod.GET, null, TokenValidatorResponse.class);
+            return Objects.requireNonNull(response.getBody()).getStatus();
+        } else {
+            System.out.println("Application with name 'hello' not found");
+            throw new Exception("Auth Service not found!");
+        }
     }
 }
 
