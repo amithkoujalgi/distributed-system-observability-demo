@@ -30,9 +30,7 @@ public class InstrumentController {
                     @Content(schema = @Schema(implementation = List.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
     })
-    @Observed(name = "InstrumentController.listAllStocks",
-            contextualName = "listAllStocks",
-            lowCardinalityKeyValues = {})
+
     @GetMapping("/stocks")
     public List<Instrument> listAllStocks(@RequestHeader(value = "access-token") String accessToken) {
         try {
@@ -47,9 +45,7 @@ public class InstrumentController {
     }
 
     @Operation(summary = "Get stock instrument by name")
-    @Observed(name = "InstrumentController.listStockByName",
-            contextualName = "listStockByName",
-            lowCardinalityKeyValues = {})
+
     @GetMapping("/stock/{name}")
     public Instrument listStockByName(@RequestHeader(value = "access-token") String accessToken, @PathVariable String name) throws Exception {
         try {
@@ -64,9 +60,7 @@ public class InstrumentController {
     }
 
     @Operation(summary = "Find stock instrument by keyword")
-    @Observed(name = "InstrumentController.findStockByKeyword",
-            contextualName = "findStockByKeyword",
-            lowCardinalityKeyValues = {})
+
     @GetMapping("/stock/find/{keyword}")
     public List<Instrument> findStockByKeyword(@RequestHeader(value = "access-token") String accessToken, @PathVariable String keyword) throws Exception {
         try {

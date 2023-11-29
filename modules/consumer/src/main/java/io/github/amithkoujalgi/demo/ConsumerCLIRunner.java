@@ -48,9 +48,6 @@ public class ConsumerCLIRunner implements CommandLineRunner {
 
     @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.price-changes}", groupId = "consumer-group-stock-price-updates")
-    @Observed(name = "ConsumerCLIRunner.listenPriceChanges",
-            contextualName = "listenPriceChanges",
-            lowCardinalityKeyValues = {})
     public void listenPriceChanges(String message) {
         log.info("Received price change: " + message);
         try {
@@ -67,9 +64,6 @@ public class ConsumerCLIRunner implements CommandLineRunner {
 
     @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.orders-placed}", groupId = "consumer-group-stock-price-updates")
-    @Observed(name = "ConsumerCLIRunner.listenOrdersPlaced",
-            contextualName = "listenOrdersPlaced",
-            lowCardinalityKeyValues = {})
     public void listenOrdersPlaced(String message) {
         log.info("Received order: " + message);
         try {

@@ -20,9 +20,7 @@ import java.util.UUID;
 @RequestMapping("/api/auth")
 public class AuthController {
     @Operation(summary = "Login")
-    @Observed(name = "AuthController.login",
-            contextualName = "login",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
@@ -31,9 +29,7 @@ public class AuthController {
     }
 
     @Operation(summary = "Check if user is logged in")
-    @Observed(name = "AuthController.isLoggedIn",
-            contextualName = "isLoggedIn",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/is-logged-in/{token}")
     @ResponseStatus(HttpStatus.OK)

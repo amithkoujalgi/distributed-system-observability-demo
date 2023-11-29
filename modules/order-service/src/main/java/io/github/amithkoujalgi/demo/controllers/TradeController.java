@@ -35,9 +35,7 @@ public class TradeController {
     AuthTokenValidator authTokenValidator;
 
     @Operation(summary = "Place an order")
-    @Observed(name = "TradeController.placeOrder",
-            contextualName = "placeOrder",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @PostMapping("/order")
     @ResponseStatus(HttpStatus.OK)
@@ -55,9 +53,7 @@ public class TradeController {
     }
 
     @Operation(summary = "List orders of a user")
-    @Observed(name = "TradeController.listOrders",
-            contextualName = "listOrders",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/orders/{userId}")
     @ResponseStatus(HttpStatus.OK)
@@ -74,9 +70,7 @@ public class TradeController {
     }
 
     @Operation(summary = "Get portfolio of a user")
-    @Observed(name = "TradeController.getPortfolioOfUser",
-            contextualName = "getPortfolioOfUser",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/portfolio/{userId}")
     @ResponseStatus(HttpStatus.OK)
@@ -93,9 +87,7 @@ public class TradeController {
     }
 
     @Operation(summary = "Get portfolio of a user with instrument price averages")
-    @Observed(name = "TradeController.getPortfolioWithInstrumentPriceAveragesOfUser",
-            contextualName = "getPortfolioWithInstrumentPriceAveragesOfUser",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/portfolio/averages/{userId}")
     @ResponseStatus(HttpStatus.OK)
@@ -112,9 +104,7 @@ public class TradeController {
     }
 
     @Operation(summary = "Get user's holdings")
-    @Observed(name = "TradeController.holdings",
-            contextualName = "holdings",
-            lowCardinalityKeyValues = {})
+
     @ApiResponses({@ApiResponse(responseCode = "201", content = {@Content(schema = @Schema(implementation = Boolean.class), mediaType = "application/json")}), @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/holdings/{userId}")
     @ResponseStatus(HttpStatus.OK)
