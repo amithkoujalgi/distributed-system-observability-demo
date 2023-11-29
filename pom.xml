@@ -24,6 +24,9 @@
         <maven.compiler.verbose>true</maven.compiler.verbose>
         <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
+        <spring-kafka.version>3.0.12</spring-kafka.version>
+        <junit-jupiter-api.version>5.10.0</junit-jupiter-api.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
     </properties>
 
     <parent>
@@ -77,12 +80,12 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <version>3.0.12</version>
+            <version>${spring-kafka.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.0</version>
+            <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -93,7 +96,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>2.2</version>
+            <version>${snakeyaml.version}</version>
         </dependency>
     </dependencies>
 
