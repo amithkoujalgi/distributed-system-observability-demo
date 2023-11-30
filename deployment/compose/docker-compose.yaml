@@ -73,7 +73,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
   #      - ../../ui/static-content:/usr/share/nginx/html
 
   zipkin-svc:
@@ -111,7 +111,7 @@ services:
       PGADMIN_SERVER_JSON_FILE: /pgadminconfig/servers.json
     volumes:
       - postgres-ui:/root/.pgadmin
-      - ./postgres:/pgadminconfig
+      - ./config/postgres:/pgadminconfig
     ports:
       - "5050:5050"
     restart: unless-stopped
