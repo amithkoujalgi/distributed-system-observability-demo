@@ -39,9 +39,9 @@ public class TradeAPIImpl implements TradeAPI {
     @Autowired
     private KafkaTemplate<String, Object> kafkaProducer;
 
-//    @Autowired
-//    private KafkaConsumer<String, Object> kafkaConsumer;
-//
+    @Autowired
+    private KafkaConsumer<String, Object> kafkaConsumer;
+
     @Value("${infrastructure.topics.orders-placed}")
     private String topic;
 
@@ -57,36 +57,33 @@ public class TradeAPIImpl implements TradeAPI {
         return true;
     }
 
+    @Override
     public List<UserOrder> listOrdersOfUser(String userId) {
-        return new ArrayList<>();
+        TopicPartition partition = new TopicPartition(topic, 0);
+        List<TopicPartition> partitions = new ArrayList<>();
+        partitions.add(partition);
+        kafkaConsumer.assign(partitions);
+        kafkaConsumer.seekToBeginning(Collections.singleton(partition));
+
+        List<UserOrder> ordersPlaced = new ArrayList<>();
+        try {
+            ConsumerRecords<String, Object> records = kafkaConsumer.poll(Duration.ofMillis(3000));
+            for (ConsumerRecord<String, Object> record : records) {
+                try {
+                    String key = record.key();
+                    if (key.equals(userId)) {
+                        Order value = (Order) record.value();
+                        ordersPlaced.add(new UserOrder(value.getInstrument(), value.getPrice(), value.getQuantity(), value.getOrderId(), value.getTimestamp(), value.getType()));
+                    }
+                } catch (RecordDeserializationException e) {
+                    System.err.println("Error deserializing record: " + e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ordersPlaced;
     }
-//    @Override
-//    public List<UserOrder> listOrdersOfUser(String userId) {
-//        TopicPartition partition = new TopicPartition(topic, 0);
-//        List<TopicPartition> partitions = new ArrayList<>();
-//        partitions.add(partition);
-//        kafkaConsumer.assign(partitions);
-//        kafkaConsumer.seekToBeginning(Collections.singleton(partition));
-//
-//        List<UserOrder> ordersPlaced = new ArrayList<>();
-//        try {
-//            ConsumerRecords<String, Object> records = kafkaConsumer.poll(Duration.ofMillis(3000));
-//            for (ConsumerRecord<String, Object> record : records) {
-//                try {
-//                    String key = record.key();
-//                    if (key.equals(userId)) {
-//                        Order value = (Order) record.value();
-//                        ordersPlaced.add(new UserOrder(value.getInstrument(), value.getPrice(), value.getQuantity(), value.getOrderId(), value.getTimestamp(), value.getType()));
-//                    }
-//                } catch (RecordDeserializationException e) {
-//                    System.err.println("Error deserializing record: " + e.getMessage());
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return ordersPlaced;
-//    }
 
     private List<PortfolioItem> userPortfolioFromRedis(String userId) throws JsonProcessingException {
         Set<String> stockKeys = redisTemplate.keys(userPortfolioKeyname + "*");
