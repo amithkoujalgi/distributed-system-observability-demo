@@ -134,6 +134,7 @@ services:
       - ./config/grafana/provisioning/alerting:/etc/grafana/provisioning/alerting:ro
     ports:
       - 3000:3000
+    restart: unless-stopped
 
   tempo:
     image: grafana/tempo

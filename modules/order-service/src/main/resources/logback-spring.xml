@@ -1,7 +1,7 @@
 <configuration>
     <jmxConfigurator/>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <property scope="local" name="payloadFileName" value="${spring.application.home:-.}/logs/tea-service.payload.log"/>
+    <property scope="local" name="payloadFileName" value="${spring.application.home:-.}/logs/${spring.application.name}.payload.log"/>
     <springProperty scope="context" name="appName" source="spring.application.name"/>
 
     <appender name="PAYLOAD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
