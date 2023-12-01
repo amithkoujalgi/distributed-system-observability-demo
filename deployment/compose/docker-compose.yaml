@@ -70,11 +70,7 @@ services:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
   #      - ../../ui/static-content:/usr/share/nginx/html
 
-  zipkin-svc:
-    image: openzipkin/zipkin
-    hostname: zipkin-svc
-    ports:
-      - "9411:9411"
+
 
   postgres:
     image: postgres
@@ -145,6 +141,14 @@ services:
       - ./config/grafana/tempo.yml:/etc/tempo.yml:ro
     ports:
       - 3200:3200    # tempo
+      - 9411:9411    # zipkin
+
+
+  #  zipkin-svc:
+  #    image: openzipkin/zipkin
+  #    hostname: zipkin-svc
+  #    ports:
+  #      - "9411:9411"
 
   loki:
     image: grafana/loki
