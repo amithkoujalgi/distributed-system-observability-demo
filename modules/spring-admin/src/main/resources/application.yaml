@@ -64,3 +64,8 @@ spring:
 spring.cloud.discovery.client:
   composite-indicator:
     enabled: false
+
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**

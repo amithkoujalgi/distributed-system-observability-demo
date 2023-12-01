@@ -66,3 +66,8 @@ spring:
     password: password
     url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     username: sa
+
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**
