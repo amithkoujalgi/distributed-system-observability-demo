@@ -40,6 +40,14 @@ With all services up, access:
 | Ticker Service          | http://localhost:9902/docs |                                          |
 | Order Service           | http://localhost:9903/docs |                                          |
 
+
+Generate traffic:
+
+```shell
+cd deployment
+make traffic
+```
+
 References:
 
 https://spring.io/guides/tutorials/metrics-and-tracing/
