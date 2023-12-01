@@ -1,7 +1,8 @@
 <configuration>
     <jmxConfigurator/>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <property scope="local" name="payloadFileName" value="${spring.application.home:-.}/logs/${spring.application.name}.payload.log"/>
+    <property scope="local" name="payloadFileName"
+              value="${spring.application.home:-.}/logs/http-payload.log"/>
     <springProperty scope="context" name="appName" source="spring.application.name"/>
 
     <appender name="PAYLOAD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -32,6 +33,7 @@
     </appender>
     <logger name="org.zalando.logbook.Logbook" level="ALL" additivity="false">
         <appender-ref ref="PAYLOAD_FILE"/>
+        <appender-ref ref="LOKI"/>
     </logger>
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
