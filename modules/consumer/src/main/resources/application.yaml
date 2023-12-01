@@ -27,8 +27,8 @@ management:
   endpoint:
     env:
       health:
-        show-details: always
-      show-values: always
+        show-details: ALWAYS
+      show-values: ALWAYS
     metrics:
       enabled: true
   endpoints:
@@ -52,7 +52,7 @@ management:
       endpoint: http://localhost:9411/api/v2/spans
   observations:
     key-values:
-      org: ${spring.application.org}
+      application: ${spring.application.name}
   tracing:
     enabled: true
     sampling:

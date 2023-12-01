@@ -1,22 +1,68 @@
-server:
-  port: 9900
 eureka:
-  renewalPercentThreshold: 0.49
   client:
-    register-with-eureka: false
     fetch-registry: false
-  server:
-    max-threads-for-peer-replication: 0
-    wait-time-in-ms-when-sync-empty: 0
-    enableSelfPreservation: false
+    register-with-eureka: false
   instance:
     lease-renewal-interval-in-seconds: 0
+  renewalPercentThreshold: 0.49
+  server:
+    enableSelfPreservation: false
+    max-threads-for-peer-replication: 0
+    wait-time-in-ms-when-sync-empty: 0
+management:
+  endpoint:
+    env:
+      show-values: ALWAYS
+    configprops:
+      show-values: ALWAYS
+    health:
+      show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+    tags:
+      application: ${spring.application.name}
+      profiles: ${spring.profiles.active}
+  observations:
+    key-values:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        step: 10s
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: false
+server:
+  port: 9900
 spring:
-  datasource:
-    url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
-    username: sa
-    password: password
-    driver-class-name: org.h2.Driver
   application:
     name: service-registry
-
+  boot:
+    admin:
+      client:
+        url: http://localhost:9800
+  datasource:
+    driver-class-name: org.h2.Driver
+    password: password
+    url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa

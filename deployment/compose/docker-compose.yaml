@@ -171,6 +171,6 @@ volumes:
   redis-svc:
   redis-ui:
   prometheus:
-    driver: local
+#    driver: local
   tempo:
-    driver: local
+#    driver: local
