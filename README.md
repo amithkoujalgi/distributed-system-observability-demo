@@ -12,6 +12,7 @@
 - [Design](#)
 - [Prerequisites](#prerequisites)
 - [Run](#run)
+- [References](#references)
 
 ## Introduction
 
@@ -67,7 +68,7 @@ Generate traffic:
 make traffic
 ```
 
-References:
+### References:
 
 - https://www.youtube.com/watch?v=fh3VbrPvAjg&ab_channel=SpringI%2FO
 - https://spring.io/guides/tutorials/metrics-and-tracing/
