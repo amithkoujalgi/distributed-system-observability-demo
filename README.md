@@ -22,7 +22,29 @@
 - [Docker Compose](https://docs.docker.com/compose/)
 - [httpie](https://httpie.io/)
 
+## Build
+
+```shell
+mvn clean install
+```
+
 ## Run
+
+Start docker containers:
+```shell
+docker-compose -f deployment/compose/docker-compose.yaml up --remove-orphans
+```
+
+Start Java apps:
+```shell
+mvn -f modules/spring-admin/pom.xml spring-boot:run
+mvn -f modules/service-registry/pom.xml spring-boot:run
+mvn -f modules/auth-service/pom.xml spring-boot:run
+mvn -f modules/order-service/pom.xml spring-boot:run
+mvn -f modules/ticker-service/pom.xml spring-boot:run
+mvn -f modules/producer/pom.xml spring-boot:run
+mvn -f modules/consumer/pom.xml spring-boot:run
+```
 
 With all services up, access:
 
