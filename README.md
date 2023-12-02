@@ -1,4 +1,4 @@
-# Demo of Distributed Processing with Observability
+# Demo of Distributed System with Observability
 
 ## [Work in progress]
 
