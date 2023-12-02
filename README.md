@@ -44,19 +44,13 @@ mvn clean install
 Start docker containers:
 
 ```shell
-docker-compose -f deployment/compose/docker-compose.yaml up --remove-orphans
+make start-docker
 ```
 
 Start Java apps:
 
 ```shell
-mvn -f modules/spring-admin/pom.xml spring-boot:run
-mvn -f modules/service-registry/pom.xml spring-boot:run
-mvn -f modules/auth-service/pom.xml spring-boot:run
-mvn -f modules/order-service/pom.xml spring-boot:run
-mvn -f modules/ticker-service/pom.xml spring-boot:run
-mvn -f modules/producer/pom.xml spring-boot:run
-mvn -f modules/consumer/pom.xml spring-boot:run
+make start-apps
 ```
 
 With all services up, access:
@@ -78,6 +72,18 @@ Generate traffic:
 
 ```shell
 make traffic
+```
+
+Stop apps:
+
+```shell
+make stop-apps
+```
+
+Stop docker containers:
+
+```shell
+make stop-docker
 ```
 
 ### Images

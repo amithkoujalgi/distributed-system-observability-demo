@@ -18,3 +18,29 @@ traffic:
 		  accept:application/json \
 		  access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; \
 	done \
+
+start-docker:
+	docker-compose -f ./deployment/compose/docker-compose.yaml up --remove-orphans;
+
+stop-docker:
+	docker-compose -f ./deployment/compose/docker-compose.yaml down -v; \
+    docker-compose -f ./deployment/compose/docker-compose.yaml rm -fsv;
+
+start-apps:
+	mvn -f modules/spring-admin/pom.xml spring-boot:run & \
+	mvn -f modules/service-registry/pom.xml spring-boot:run & \
+	sleep 20; \
+	mvn -f modules/auth-service/pom.xml spring-boot:run & \
+	mvn -f modules/order-service/pom.xml spring-boot:run & \
+	mvn -f modules/ticker-service/pom.xml spring-boot:run & \
+	mvn -f modules/producer/pom.xml spring-boot:run & \
+	mvn -f modules/consumer/pom.xml spring-boot:run &
+
+stop-apps:
+	jps | grep ConsumerCLIRunner | cut -d' ' -f1 | xargs kill; \
+	jps | grep ProducerBatchProcessingApplication | cut -d' ' -f1 | xargs kill; \
+	jps | grep TickerServiceApplication | cut -d' ' -f1 | xargs kill; \
+	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill; \
+	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill; \
+	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill; \
+	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill;
