@@ -1,4 +1,4 @@
-# Distributed Processing Demo
+# Demo of Distributed Processing with Observability
 
 ## [Work in progress]
 
@@ -6,14 +6,13 @@
 ![Java](https://img.shields.io/badge/Java-20-green.svg)
 ![Kafka](https://img.shields.io/badge/Confluent--Kafka-7.3.2%2B-red.svg)
 
-This project implements a
-
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Design](#)
 - [Prerequisites](#prerequisites)
 - [Run](#run)
+- [References](#references)
 
 ## Introduction
 
@@ -22,8 +21,31 @@ This project implements a
 - [Python 3.8+](https://www.python.org/downloads/release/python-380/)
 - [Docker](https://www.docker.com/products/docker-desktop/)
 - [Docker Compose](https://docs.docker.com/compose/)
+- [httpie](https://httpie.io/)
+
+## Build
+
+```shell
+mvn clean install
+```
 
 ## Run
+
+Start docker containers:
+```shell
+docker-compose -f deployment/compose/docker-compose.yaml up --remove-orphans
+```
+
+Start Java apps:
+```shell
+mvn -f modules/spring-admin/pom.xml spring-boot:run
+mvn -f modules/service-registry/pom.xml spring-boot:run
+mvn -f modules/auth-service/pom.xml spring-boot:run
+mvn -f modules/order-service/pom.xml spring-boot:run
+mvn -f modules/ticker-service/pom.xml spring-boot:run
+mvn -f modules/producer/pom.xml spring-boot:run
+mvn -f modules/consumer/pom.xml spring-boot:run
+```
 
 With all services up, access:
 
@@ -33,16 +55,23 @@ With all services up, access:
 | Postgres UI             | http://localhost:5050      | U: `pgadmin4@pgadmin.org`<br/>P: `admin` |
 | Kafka UI                | http://localhost:8080      |                                          |
 | Redis UI                | http://localhost:8050      |                                          |
-| Zipkin UI               | http://localhost:9411      |                                          |
+| Grafana UI              | http://localhost:3000      |                                          |
 | Eureka Service Registry | http://localhost:9900      |                                          |
-| Spring Boot Admin       | http://localhost:9900      |                                          |
+| Spring Boot Admin       | http://localhost:9800      |                                          |
 | Auth Service            | http://localhost:9901/docs |                                          |
 | Ticker Service          | http://localhost:9902/docs |                                          |
 | Order Service           | http://localhost:9903/docs |                                          |
 
-References:
+Generate traffic:
 
-https://spring.io/guides/tutorials/metrics-and-tracing/
-https://stackoverflow.com/questions/76418005/not-able-to-trace-database-requests-with-spring-boot-3-and-micrometer
-https://github.com/micrometer-metrics/micrometer-samples/blob/main/micrometer-samples-boot3-database/src/main/java/io/micrometer/boot3/samples/db/SampleController.java
-https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
+```shell
+make traffic
+```
+
+### References:
+
+- https://www.youtube.com/watch?v=fh3VbrPvAjg&ab_channel=SpringI%2FO
+- https://spring.io/guides/tutorials/metrics-and-tracing/
+- https://stackoverflow.com/questions/76418005/not-able-to-trace-database-requests-with-spring-boot-3-and-micrometer
+- https://github.com/micrometer-metrics/micrometer-samples/blob/main/micrometer-samples-boot3-database/src/main/java/io/micrometer/boot3/samples/db/SampleController.java
+- https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html

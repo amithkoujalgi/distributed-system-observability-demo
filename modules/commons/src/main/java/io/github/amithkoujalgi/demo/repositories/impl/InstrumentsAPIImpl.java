@@ -23,10 +23,7 @@ public class InstrumentsAPIImpl implements InstrumentsAPI {
     @Value("${infrastructure.redis.keys.indices}")
     private String indicesKeyname;
 
-    @Observed(name = "InstrumentRepository.fetchAllStockInstruments",
-            contextualName = "fetchAllStockInstruments",
-            lowCardinalityKeyValues = {"description", "Fetches all stock instruments from Redis", "classification", "stock"}
-    )
+
     @Override
     public List<Instrument> fetchAllStockInstruments() throws Exception {
         Set<String> stockKeys = redisTemplate.keys(stocksKeyname + "*");
@@ -41,20 +38,14 @@ public class InstrumentsAPIImpl implements InstrumentsAPI {
         return instrumentList;
     }
 
-    @Observed(name = "InstrumentRepository.fetchStockInstrumentByName",
-            contextualName = "fetchStockInstrumentByName",
-            lowCardinalityKeyValues = {"description", "Fetches stock instrument by name from Redis", "classification", "stock"}
-    )
+
     @Override
     public Instrument fetchStockInstrumentByName(String symbol) throws Exception {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(stocksKeyname + ":" + symbol);
         return Instrument.fromJSON(map.get("price").toString());
     }
 
-    @Observed(name = "InstrumentRepository.findStockInstrumentsByKeyword",
-            contextualName = "findStockInstrumentsByKeyword",
-            lowCardinalityKeyValues = {"description", "Fetches stock instrument by keyword from Redis", "classification", "stock"}
-    )
+
     @Override
     public List<Instrument> findStockInstrumentsByKeyword(String keyword) throws Exception {
         List<Instrument> matchedInstruments = new ArrayList<>();

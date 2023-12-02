@@ -41,6 +41,7 @@ public class TradeAPIImpl implements TradeAPI {
 
     @Autowired
     private KafkaConsumer<String, Object> kafkaConsumer;
+
     @Value("${infrastructure.topics.orders-placed}")
     private String topic;
 

@@ -1,55 +1,28 @@
-server:
-  port: 9904
-spring:
-  application:
-    name: producer
-  batch:
-    jdbc:
-      initialize-schema: always
-  main:
-    allow-bean-definition-overriding: true
-  boot:
-    admin:
-      client:
-        url: http://localhost:9800
-  datasource:
-    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
-    username: root
-    password: root
-    driver-class-name: org.postgresql.Driver
-  datasource-batch:
-    url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
-    username: sa
-    password: password
-    driver-class-name: org.h2.Driver
-    initialization-mode: always
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-producer:
-  stock-instruments: "GOOGL,AAPL,TSLA,NVDA,AMD,AMZN,INTC,MSFT,UBER,ADBE,CSCO"
-
-springdoc:
-  swagger-ui:
-    path: /docs
-    tryItOutEnabled: true
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
+  instance:
+    preferIpAddress: true
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:localhost:9092}
-  topics:
-    price-changes: stock-prices
-    orders-placed: orders
   redis:
     host: localhost
-    port: 6379
     keys:
-      stocks: "stocks"
-      indices: "indices"
-      portfolio: "portfolio"
-
+      indices: indices
+      portfolio: portfolio
+      stocks: stocks
+    port: 6379
+  topics:
+    orders-placed: orders
+    price-changes: stock-prices
+logging:
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: false
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 management:
   endpoint:
     metrics:
@@ -59,29 +32,59 @@ management:
     web:
       exposure:
         include: '*'
-  tracing:
-    enabled: true
-    sampling:
-      probability: 1.0
   metrics:
     distribution:
       percentiles-histogram:
         http:
           requests: true
+          server:
+            requests: true
+          client:
+            requests: true
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
-
-logging:
-  pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
-  file:
-    name: ${spring.application.home:.}/logs/${spring.application.name}.log
-  level:
-    com.netflix.discovery: OFF
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
-  instance:
-    preferIpAddress: true
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+producer:
+  stock-instruments: GOOGL,AAPL,TSLA,NVDA,AMD,AMZN,INTC,MSFT,UBER,ADBE,CSCO
+server:
+  port: 9904
+spring:
+  application:
+    name: producer
+  batch:
+    jdbc:
+      initialize-schema: always
+  boot:
+    admin:
+      client:
+        url: http://localhost:9800
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://${INFRA_POSTGRES_HOST:localhost}:${INFRA_POSTGRES_PORT:5432}/stocks
+    username: root
+  datasource-batch:
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+    password: password
+    url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  main:
+    allow-bean-definition-overriding: true
+springdoc:
+  swagger-ui:
+    path: /docs
+    tryItOutEnabled: true
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**

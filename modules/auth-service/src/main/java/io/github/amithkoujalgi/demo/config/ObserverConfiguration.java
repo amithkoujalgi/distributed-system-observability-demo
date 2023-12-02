@@ -43,7 +43,7 @@ class ObserverConfiguration {
             Observation.Context root = getRootObservationContext(context);
             if (root instanceof ServerRequestObservationContext serverContext) {
                 String r = serverContext.getCarrier().getRequestURI();
-                return !r.startsWith("/swagger-ui") && !r.startsWith("/v3/api-docs") && !r.startsWith("/eureka");
+                return !r.startsWith("/swagger-ui") && !r.startsWith("/v3/api-docs") && !r.startsWith("/eureka") && !r.startsWith("/actuator");
             }
             return true;
         };

@@ -1,18 +1,11 @@
 package io.github.amithkoujalgi.demo.config;
 
-import io.github.amithkoujalgi.demo.models.http.Instrument;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +14,7 @@ import java.util.Map;
 
 @Component
 @Configuration
-public class KafkaConfig {
+public class KafkaProducerConfig {
     @Value("${infrastructure.kafka_brokers}")
     private String bootstrapServers;
 
@@ -45,22 +38,5 @@ public class KafkaConfig {
         KafkaTemplate<String, Object> template = new KafkaTemplate<>(producerFactory());
         template.setObservationEnabled(true);
         return template;
-    }
-
-
-    @Bean
-    public Map<String, Object> consumerConfig() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "ConsumerGroup1");
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, Instrument.class.getPackage().getName());
-        return props;
-    }
-
-    @Bean
-    public KafkaConsumer<String, Object> kafkaConsumer() {
-        return new KafkaConsumer<>(consumerConfig());
     }
 }

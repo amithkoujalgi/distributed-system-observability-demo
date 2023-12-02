@@ -6,9 +6,11 @@ logging:
 management:
   endpoint:
     env:
-      show-values: always
+      show-values: ALWAYS
+    configprops:
+      show-values: ALWAYS
     health:
-      show-details: always
+      show-details: ALWAYS
   endpoints:
     web:
       exposure:
@@ -28,11 +30,10 @@ management:
             requests: true
     tags:
       application: ${spring.application.name}
-      org: ${spring.application.org}
       profiles: ${spring.profiles.active}
   observations:
     key-values:
-      org: ${spring.application.org}
+      application: ${spring.application.name}
   prometheus:
     metrics:
       export:
@@ -63,3 +64,8 @@ spring:
 spring.cloud.discovery.client:
   composite-indicator:
     enabled: false
+
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**

@@ -28,9 +28,11 @@ logging:
 management:
   endpoint:
     env:
-      show-values: always
+      show-values: ALWAYS
+    configprops:
+      show-values: ALWAYS
     health:
-      show-details: always
+      show-details: ALWAYS
     metrics:
       enabled: true
   endpoints:
@@ -50,11 +52,15 @@ management:
       percentiles-histogram:
         http:
           requests: true
+          server:
+            requests: true
+          client:
+            requests: true
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
   observations:
     key-values:
-      org: ${spring.application.org}
+      application: ${spring.application.name}
   tracing:
     enabled: true
     sampling:
@@ -85,3 +91,9 @@ springdoc:
   swagger-ui:
     path: /docs
     tryItOutEnabled: true
+
+
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**
