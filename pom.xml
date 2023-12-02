@@ -34,7 +34,7 @@
         <logbook-okhttp.version>3.6.0</logbook-okhttp.version>
         <micrometer-core.version>1.12.0</micrometer-core.version>
         <postgresql.version>42.6.0</postgresql.version>
-        <h2.version>2.1.214</h2.version>
+        <h2.version>2.2.220</h2.version>
         <spring-boot-starter-actuator.version>3.1.5</spring-boot-starter-actuator.version>
         <micrometer-observation.version>1.11.5</micrometer-observation.version>
         <micrometer-tracing-bridge-brave.version>1.1.6</micrometer-tracing-bridge-brave.version>
