@@ -88,7 +88,7 @@ Service Logs via Service Registry:
 Central Dashboard - Service Logs:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/logs-dash.png"/>
 
-Central Dashboard - Stats of HTTP Requests:
+Central Dashboard - Stats of HTTP Requests (Latency/Throughput):
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/http-dash.png"/>
 
 Sample Exemplar:
