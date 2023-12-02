@@ -399,7 +399,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(http_server_requests_seconds_count{instance=\"$application\"},uri)",
+          "query": "label_values(http_server_requests_seconds_count,uri)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
