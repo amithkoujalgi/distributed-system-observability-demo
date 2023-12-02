@@ -30,7 +30,6 @@ public class AuthTokenValidator {
         if (authApp.isPresent()) {
             Application app = authApp.get();
             String url = app.getInstances().get(0).getHomePageUrl();
-            System.out.println("+++URL: "+url);
             ResponseEntity<TokenValidatorResponse> response = restTemplate.exchange(url + "/api/auth/is-logged-in/" + token, HttpMethod.GET, null, TokenValidatorResponse.class);
             return Objects.requireNonNull(response.getBody()).getStatus();
         } else {

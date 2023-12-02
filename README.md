@@ -44,7 +44,6 @@ With all services up, access:
 Generate traffic:
 
 ```shell
-cd deployment
 make traffic
 ```
 
