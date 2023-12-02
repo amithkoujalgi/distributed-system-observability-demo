@@ -68,6 +68,42 @@ Generate traffic:
 make traffic
 ```
 
+### Images
+
+Spring Admin:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/spring-admin.png"/>
+
+Service Registry:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/eureka.png"/>
+
+Service Registry:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/eureka.png"/>
+
+Service Details via Service Registry:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/spring-admin-service.png"/>
+
+Service Logs via Service Registry:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/spring-admin-service-logs.png"/>
+
+Central Dashboard - Service Logs:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/logs-dash.png"/>
+
+Central Dashboard - Stats of HTTP Requests:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/http-dash.png"/>
+
+Sample Exemplar:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/exemplar.png"/>
+
+Sample Trace:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace.png"/>
+
+Service Graph for a Trace:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace-node-graph.png"/>
+
+Full Service Graph:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/services-graph.png"/>
+
+
 ### Improvements:
 
 - [ ] Filter by URLs of a selected service/application on `HTTP Stats` Grafana Dashboard
