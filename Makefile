@@ -37,10 +37,10 @@ start-apps:
 	mvn -f modules/consumer/pom.xml spring-boot:run &
 
 stop-apps:
-	jps | grep ConsumerCLIRunner | cut -d' ' -f1 | xargs kill; \
-	jps | grep ProducerBatchProcessingApplication | cut -d' ' -f1 | xargs kill; \
-	jps | grep TickerServiceApplication | cut -d' ' -f1 | xargs kill; \
-	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill; \
-	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill; \
-	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill; \
-	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill;
+	jps | grep ConsumerCLIRunner | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep ProducerBatchProcessingApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep TickerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill -9;
