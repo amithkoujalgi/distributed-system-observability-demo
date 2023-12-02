@@ -68,6 +68,12 @@ Generate traffic:
 make traffic
 ```
 
+### Improvements:
+
+- [ ] Filter by URLs of a selected service/application on `HTTP Stats` Grafana Dashboard
+- [ ] Instrumentation of Redis APIs
+- [ ] Instrumentation of consumer
+
 ### References:
 
 - https://www.youtube.com/watch?v=fh3VbrPvAjg&ab_channel=SpringI%2FO
