@@ -2,9 +2,13 @@
 
 ## [Work in progress]
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
-![Java](https://img.shields.io/badge/Java-20-green.svg)
+This project implements a simplified stock market simulation. The simulation involves
+generating random stock price data and simulating trader's actions based on the received stock prices.
+
+![Java](https://img.shields.io/badge/Java-17-green.svg)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-green.svg)
 ![Kafka](https://img.shields.io/badge/Confluent--Kafka-7.3.2%2B-red.svg)
+![Redis](https://img.shields.io/badge/Redis-6.0.20%2B-blue.svg)
 
 ## Table of Contents
 
@@ -16,9 +20,15 @@
 
 ## Introduction
 
+The goal of this project is to demonstrate a basic stock market simulation using distributed systems and a message broker for
+communication between the components of the system. The simulation consists of producers generating simulated stock price
+data, and consumers (traders) making buying and selling decisions based on their trading strategies.
+
+_Please note that this simulation is a simplified version and might not represent real-world trading conditions or all
+aspects of a complex stock market._
+
 ## Prerequisites
 
-- [Python 3.8+](https://www.python.org/downloads/release/python-380/)
 - [Docker](https://www.docker.com/products/docker-desktop/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [httpie](https://httpie.io/)
@@ -32,11 +42,13 @@ mvn clean install
 ## Run
 
 Start docker containers:
+
 ```shell
 docker-compose -f deployment/compose/docker-compose.yaml up --remove-orphans
 ```
 
 Start Java apps:
+
 ```shell
 mvn -f modules/spring-admin/pom.xml spring-boot:run
 mvn -f modules/service-registry/pom.xml spring-boot:run
@@ -102,7 +114,6 @@ Service Graph for a Trace:
 
 Full Service Graph:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/services-graph.png"/>
-
 
 ### Improvements:
 
