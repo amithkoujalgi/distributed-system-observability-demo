@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -353,9 +352,9 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": "order-service-913a8d72-0caf-4d33-a3a2-41717a4ffaeb",
+          "value": "order-service-913a8d72-0caf-4d33-a3a2-41717a4ffaeb"
         },
         "datasource": {
           "type": "prometheus",
@@ -383,8 +382,8 @@
         "allValue": ".*",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": "/api/trade/portfolio/{userId}",
+          "value": "/api/trade/portfolio/{userId}"
         },
         "datasource": {
           "type": "prometheus",
@@ -399,7 +398,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(http_server_requests_seconds_count,uri)",
+          "query": "label_values(http_server_requests_seconds_count{instance=\"$application\"},uri)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -418,6 +417,6 @@
   "timezone": "",
   "title": "HTTP Stats",
   "uid": "280lKAr7k",
-  "version": 42,
+  "version": 1,
   "weekStart": "monday"
 }

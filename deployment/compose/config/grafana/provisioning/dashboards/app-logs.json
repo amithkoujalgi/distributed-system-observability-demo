@@ -246,7 +246,7 @@
             "uid": "loki"
           },
           "editorMode": "builder",
-          "expr": "{application=\"producer\"} !~ `org.zalando.logbook.Logbook`",
+          "expr": "{application=\"producer-service\"} !~ `org.zalando.logbook.Logbook`",
           "maxLines": 10,
           "queryType": "range",
           "refId": "A"
