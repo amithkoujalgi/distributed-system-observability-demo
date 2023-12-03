@@ -297,7 +297,10 @@
   ],
   "refresh": "5s",
   "schemaVersion": 38,
-  "tags": [],
+  "tags": [
+    "Logs",
+    "Logging"
+  ],
   "templating": {
     "list": []
   },

@@ -346,7 +346,13 @@
   ],
   "refresh": "5s",
   "schemaVersion": 38,
-  "tags": [],
+  "tags": [
+    "HTTP",
+    "API",
+    "Performance",
+    "Latency",
+    "Throughput"
+  ],
   "templating": {
     "list": [
       {

@@ -31,6 +31,7 @@ replay_pid*
 /target/
 **/target/
 !distributed-processing-demo.iml
-
+!deployment/compose/config/kafka/jmx_prometheus_javaagent-0.20.0.jar
+!deployment/compose/config/kafka/jolokia-jvm-1.7.2.jar
 *.gz
 **/*.gz

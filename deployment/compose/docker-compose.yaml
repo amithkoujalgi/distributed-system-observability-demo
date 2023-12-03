@@ -18,6 +18,8 @@ services:
       - "9092:9092"
       - "29092:29092"
       - "9999:9999"
+      - "1234:1234"
+      - "1235:1235"
     environment:
       KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka-svc:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT"
@@ -32,6 +34,13 @@ services:
       KAFKA_JMX_HOSTNAME: "${DOCKER_HOST_IP:-127.0.0.1}"
       KAFKA_AUTHORIZER_CLASS_NAME: "kafka.security.authorizer.AclAuthorizer"
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      EXTRA_ARGS:
+        -javaagent:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar=1234:/usr/share/jmx-exporter/kafka_broker.yml
+        -javaagent:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar=port=1235,host=*
+    volumes:
+      - ./config/kafka/jmx_prometheus_javaagent-0.20.0.jar:/usr/share/jmx-exporter/jmx_prometheus_javaagent-0.20.0.jar
+      - ./config/kafka/jolokia-jvm-1.7.2.jar:/usr/share/jmx-exporter/jolokia-jvm-1.7.1.jar
+      - ./config/kafka/kafka_broker.yml:/usr/share/jmx-exporter/kafka_broker.yml
     depends_on:
       - zk-svc
 
