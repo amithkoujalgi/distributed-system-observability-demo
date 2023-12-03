@@ -5,7 +5,6 @@ traffic:
           access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d \
           Content-Type:application/json \
           instrument=AAPL \
-          price:=10 \
           quantity:=20 \
           userId=1 \
           type=BUY; \
@@ -33,12 +32,12 @@ start-apps:
 	mvn -f modules/auth-service/pom.xml spring-boot:run & \
 	mvn -f modules/order-service/pom.xml spring-boot:run & \
 	mvn -f modules/ticker-service/pom.xml spring-boot:run & \
-	mvn -f modules/producer/pom.xml spring-boot:run & \
+	mvn -f modules/producer-service/pom.xml spring-boot:run & \
 	mvn -f modules/consumer/pom.xml spring-boot:run &
 
 stop-apps:
 	jps | grep ConsumerCLIRunner | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep ProducerBatchProcessingApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep ProducerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep TickerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill -9; \

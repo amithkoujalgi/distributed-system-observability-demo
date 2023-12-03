@@ -66,6 +66,7 @@
         <module>modules/auth-service</module>
         <module>modules/ticker-service</module>
         <module>modules/order-service</module>
+        <module>modules/producer-service</module>
         <module>modules/producer</module>
         <module>modules/consumer</module>
     </modules>
