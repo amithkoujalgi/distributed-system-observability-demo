@@ -297,6 +297,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -424,6 +425,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -563,7 +565,7 @@
         "definition": "label_values(env)",
         "hide": 0,
         "includeAll": false,
-        "label": "Environment",
+        "label": "Kafka Cluster",
         "multi": false,
         "name": "env",
         "options": [],
@@ -596,7 +598,7 @@
         "definition": "label_values(kafka_log_log_size{env=\"$env\"},topic)",
         "hide": 0,
         "includeAll": true,
-        "label": "Topic name",
+        "label": "Topic",
         "multi": true,
         "name": "topic",
         "options": [],
