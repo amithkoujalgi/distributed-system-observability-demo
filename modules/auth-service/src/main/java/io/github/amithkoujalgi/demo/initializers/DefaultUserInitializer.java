@@ -19,5 +19,11 @@ public class DefaultUserInitializer implements InitializingBean {
             defaultUser.setUsername("admin");
             userRepository.save(defaultUser);
         }
+        if (userRepository.findByUsername("trader1") == null) {
+            // Create and save the default user
+            User defaultUser = new User();
+            defaultUser.setUsername("trader1");
+            userRepository.save(defaultUser);
+        }
     }
 }

@@ -11,14 +11,20 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
      * the application is ready to service requests.
      */
     final
-    InstrumentProducer producer;
-    public ApplicationStartup(InstrumentProducer producer) {
-        this.producer = producer;
+    InstrumentProducer instrumentProducer;
+
+    final
+    OrderProducer orderProducer;
+
+    public ApplicationStartup(InstrumentProducer instrumentProducer, OrderProducer orderProducer) {
+        this.instrumentProducer = instrumentProducer;
+        this.orderProducer = orderProducer;
     }
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        producer.start();
+        instrumentProducer.start();
+        orderProducer.start();
     }
 }
 

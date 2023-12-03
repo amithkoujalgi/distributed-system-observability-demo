@@ -8,4 +8,13 @@ import java.util.List;
 
 public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
     Instrument findByName(String name);
+
+    default Instrument findRandomInstrument() {
+        List<Instrument> allInstruments = findAll();
+        if (!allInstruments.isEmpty()) {
+            int randomIndex = (int) (Math.random() * allInstruments.size());
+            return allInstruments.get(randomIndex);
+        }
+        return null; // Return null or handle the case when there are no instruments
+    }
 }
