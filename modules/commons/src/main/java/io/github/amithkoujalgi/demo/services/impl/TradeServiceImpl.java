@@ -38,13 +38,13 @@ public class TradeServiceImpl implements TradeService {
     private KafkaConsumer<String, Object> kafkaConsumer;
 
     @Value("${infrastructure.topics.orders-placed}")
-    private String topic;
+    private String ordersPlacedTopic;
 
     private static final Logger log = LoggerFactory.getLogger(TradeServiceImpl.class);
 
     @Override
     public boolean placeOrder(Order order) {
-        CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(topic, order.getUserId(), order);
+        CompletableFuture<SendResult<String, Object>> msg = kafkaProducer.send(ordersPlacedTopic, order.getUserId(), order);
         // if we need to wait for ack
         //  while (!msg.isDone()) {
         //       log.info("waiting for ack");

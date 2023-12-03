@@ -21,7 +21,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@SuppressWarnings("rawtypes")
 @SpringBootApplication(scanBasePackages = {"io.github.amithkoujalgi.demo"})
 @EnableDiscoveryClient
 @EnableKafka
@@ -40,8 +39,6 @@ public class ConsumerCLIRunner implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(ConsumerCLIRunner.class);
 
-
-    @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.price-changes}", groupId = "consumer-group-stock-price-updates")
     public void listenPriceChanges(Instrument instrument) {
         log.info("Received price change: " + instrument.getName());
