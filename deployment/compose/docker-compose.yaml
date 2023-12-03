@@ -70,8 +70,6 @@ services:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
   #      - ../../ui/static-content:/usr/share/nginx/html
 
-
-
   postgres:
     image: postgres
     environment:
@@ -123,6 +121,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_INSTALL_PLUGINS=redis-datasource,hamedkarbasi93-kafka-datasource
     volumes:
       - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./config/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro

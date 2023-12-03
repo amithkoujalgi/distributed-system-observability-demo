@@ -7,6 +7,7 @@ generating random stock price data and simulating trader's actions based on the 
 
 ![Java](https://img.shields.io/badge/Java-17-green.svg)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-green.svg)
+![Postgres](https://img.shields.io/badge/Postgres-blue.svg)
 ![Kafka](https://img.shields.io/badge/Confluent--Kafka-7.3.2%2B-red.svg)
 ![Redis](https://img.shields.io/badge/Redis-6.0.20%2B-blue.svg)
 
