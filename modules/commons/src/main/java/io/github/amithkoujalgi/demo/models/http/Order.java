@@ -8,11 +8,11 @@ import java.util.Date;
 public class Order {
     private String instrument;
     private Date timestamp;
-    private Double price;
     private Integer quantity;
     private String userId;
     private String orderId;
     private OrderType type;
+
     public Order() {
     }
 
@@ -29,10 +29,9 @@ public class Order {
         }
     }
 
-    public Order(String instrument, Date timestamp, Double price, Integer quantity, String userId, String orderId, OrderType type) {
+    public Order(String instrument, Date timestamp, Integer quantity, String userId, String orderId, OrderType type) {
         this.instrument = instrument;
         this.timestamp = timestamp;
-        this.price = price;
         this.quantity = quantity;
         this.userId = userId;
         this.orderId = orderId;
@@ -53,14 +52,6 @@ public class Order {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Integer getQuantity() {

@@ -1,41 +1,36 @@
-package io.github.amithkoujalgi.demo.repositories.impl;
+package io.github.amithkoujalgi.demo.services.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.amithkoujalgi.demo.entities.PortfolioInstrument;
 import io.github.amithkoujalgi.demo.models.http.Order;
 import io.github.amithkoujalgi.demo.models.http.PortfolioItem;
 import io.github.amithkoujalgi.demo.models.http.PortfolioItemAverage;
-import io.github.amithkoujalgi.demo.models.http.UserOrder;
 import io.github.amithkoujalgi.demo.repositories.PortfolioRepository;
-import io.github.amithkoujalgi.demo.repositories.TradeAPI;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
+import io.github.amithkoujalgi.demo.services.TradeService;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.errors.RecordDeserializationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 
-import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("rawtypes")
-public class TradeAPIImpl implements TradeAPI {
-    @Autowired
-    private RedisTemplate redisTemplate;
+public class TradeServiceImpl implements TradeService {
 
     @Autowired
     PortfolioRepository portfolioRepository;
 
     @Value("${infrastructure.redis.keys.portfolio}")
     private String userPortfolioKeyname;
+
     @Autowired
     private KafkaTemplate<String, Object> kafkaProducer;
 
@@ -45,7 +40,7 @@ public class TradeAPIImpl implements TradeAPI {
     @Value("${infrastructure.topics.orders-placed}")
     private String topic;
 
-    private static final Logger log = LoggerFactory.getLogger(TradeAPIImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(TradeServiceImpl.class);
 
     @Override
     public boolean placeOrder(Order order) {
@@ -57,48 +52,48 @@ public class TradeAPIImpl implements TradeAPI {
         return true;
     }
 
-    @Override
-    public List<UserOrder> listOrdersOfUser(String userId) {
-        TopicPartition partition = new TopicPartition(topic, 0);
-        List<TopicPartition> partitions = new ArrayList<>();
-        partitions.add(partition);
-        kafkaConsumer.assign(partitions);
-        kafkaConsumer.seekToBeginning(Collections.singleton(partition));
+//    @Override
+//    public List<UserOrder> listOrdersOfUser(String userId) {
+//        TopicPartition partition = new TopicPartition(topic, 0);
+//        List<TopicPartition> partitions = new ArrayList<>();
+//        partitions.add(partition);
+//        kafkaConsumer.assign(partitions);
+//        kafkaConsumer.seekToBeginning(Collections.singleton(partition));
+//
+//        List<UserOrder> ordersPlaced = new ArrayList<>();
+//        try {
+//            ConsumerRecords<String, Object> records = kafkaConsumer.poll(Duration.ofMillis(3000));
+//            for (ConsumerRecord<String, Object> record : records) {
+//                try {
+//                    String key = record.key();
+//                    if (key.equals(userId)) {
+//                        Order value = (Order) record.value();
+//                        ordersPlaced.add(new UserOrder(value.getInstrument(), value.getPrice(), value.getQuantity(), value.getOrderId(), value.getTimestamp(), value.getType()));
+//                    }
+//                } catch (RecordDeserializationException e) {
+//                    System.err.println("Error deserializing record: " + e.getMessage());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return ordersPlaced;
+//    }
 
-        List<UserOrder> ordersPlaced = new ArrayList<>();
-        try {
-            ConsumerRecords<String, Object> records = kafkaConsumer.poll(Duration.ofMillis(3000));
-            for (ConsumerRecord<String, Object> record : records) {
-                try {
-                    String key = record.key();
-                    if (key.equals(userId)) {
-                        Order value = (Order) record.value();
-                        ordersPlaced.add(new UserOrder(value.getInstrument(), value.getPrice(), value.getQuantity(), value.getOrderId(), value.getTimestamp(), value.getType()));
-                    }
-                } catch (RecordDeserializationException e) {
-                    System.err.println("Error deserializing record: " + e.getMessage());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ordersPlaced;
-    }
-
-    private List<PortfolioItem> userPortfolioFromRedis(String userId) throws JsonProcessingException {
-        Set<String> stockKeys = redisTemplate.keys(userPortfolioKeyname + "*");
-        List<PortfolioItem> portfolioItemList = new ArrayList<>();
-        assert stockKeys != null;
-        for (String key : stockKeys) {
-            List<String> portfolioItems = redisTemplate.opsForList().range(key, 0, 1);
-            assert portfolioItems != null;
-            for (String item : portfolioItems) {
-                PortfolioItem portfolioItem = PortfolioItem.fromJSONString(item);
-                portfolioItemList.add(portfolioItem);
-            }
-        }
-        return portfolioItemList;
-    }
+//    private List<PortfolioItem> userPortfolioFromRedis(String userId) throws JsonProcessingException {
+//        Set<String> stockKeys = redisTemplate.keys(userPortfolioKeyname + "*");
+//        List<PortfolioItem> portfolioItemList = new ArrayList<>();
+//        assert stockKeys != null;
+//        for (String key : stockKeys) {
+//            List<String> portfolioItems = redisTemplate.opsForList().range(key, 0, 1);
+//            assert portfolioItems != null;
+//            for (String item : portfolioItems) {
+//                PortfolioItem portfolioItem = PortfolioItem.fromJSONString(item);
+//                portfolioItemList.add(portfolioItem);
+//            }
+//        }
+//        return portfolioItemList;
+//    }
 
     @Override
     public List<PortfolioItem> getPortfolioOfUser(String userId) {

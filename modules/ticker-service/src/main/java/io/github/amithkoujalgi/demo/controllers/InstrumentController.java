@@ -1,9 +1,8 @@
 package io.github.amithkoujalgi.demo.controllers;
 
 import io.github.amithkoujalgi.demo.models.http.Instrument;
-import io.github.amithkoujalgi.demo.repositories.InstrumentsAPI;
+import io.github.amithkoujalgi.demo.services.InstrumentService;
 import io.github.amithkoujalgi.demo.util.AuthTokenValidator;
-import io.micrometer.observation.annotation.Observed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/instrument")
 public class InstrumentController {
     @Autowired
-    private InstrumentsAPI instrumentsAPI;
+    private InstrumentService instrumentService;
     @Autowired
     AuthTokenValidator authTokenValidator;
 
@@ -35,7 +34,7 @@ public class InstrumentController {
     public List<Instrument> listAllStocks(@RequestHeader(value = "access-token") String accessToken) {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
-                return instrumentsAPI.fetchAllStockInstruments();
+                return instrumentService.fetchAllStockInstruments();
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }
@@ -50,7 +49,7 @@ public class InstrumentController {
     public Instrument listStockByName(@RequestHeader(value = "access-token") String accessToken, @PathVariable String name) throws Exception {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
-                return instrumentsAPI.fetchStockInstrumentByName(name);
+                return instrumentService.fetchStockInstrumentByName(name);
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }
@@ -65,7 +64,7 @@ public class InstrumentController {
     public List<Instrument> findStockByKeyword(@RequestHeader(value = "access-token") String accessToken, @PathVariable String keyword) throws Exception {
         try {
             if (authTokenValidator.validateAuthToken(accessToken)) {
-                return instrumentsAPI.findStockInstrumentsByKeyword(keyword);
+                return instrumentService.findStockInstrumentsByKeyword(keyword);
             } else {
                 throw new IllegalArgumentException("Invalid token!");
             }

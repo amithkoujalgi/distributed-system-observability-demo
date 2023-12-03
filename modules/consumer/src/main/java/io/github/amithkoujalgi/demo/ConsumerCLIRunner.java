@@ -7,15 +7,14 @@ import io.github.amithkoujalgi.demo.models.http.Order;
 import io.github.amithkoujalgi.demo.repositories.InstrumentRepository;
 import io.github.amithkoujalgi.demo.repositories.PortfolioRepository;
 import io.github.amithkoujalgi.demo.repositories.UserRepository;
+import io.github.amithkoujalgi.demo.services.InstrumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -28,10 +27,7 @@ import java.sql.Timestamp;
 @EnableKafka
 public class ConsumerCLIRunner implements CommandLineRunner {
     @Autowired
-    private RedisTemplate redisTemplate;
-
-    @Value("${infrastructure.redis.keys.stocks}")
-    private String redisHashKeyPrefixStocks;
+    private InstrumentService instrumentService;
 
     @Autowired
     PortfolioRepository portfolioRepository;
@@ -54,13 +50,12 @@ public class ConsumerCLIRunner implements CommandLineRunner {
                 io.github.amithkoujalgi.demo.entities.Instrument instrumentEntity = new io.github.amithkoujalgi.demo.entities.Instrument(instrument.getName());
                 instrumentRepository.save(instrumentEntity);
             }
-            redisTemplate.opsForHash().put(redisHashKeyPrefixStocks + ":" + instrument.getName(), "price", instrument.toJSON());
+            instrumentService.addStockInstrument(instrument);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     @KafkaListener(topics = "${infrastructure.topics.orders-placed}", groupId = "consumer-group-stock-price-updates")
     public void listenOrdersPlaced(Order order) {
         log.info("Received order: " + order.getInstrument());
@@ -71,7 +66,9 @@ public class ConsumerCLIRunner implements CommandLineRunner {
                 log.info("Invalid user ID or instrument ID. Ignoring...");
                 return;
             }
-            PortfolioInstrument portfolioInstrument = new PortfolioInstrument(user, instrument, new BigDecimal(order.getQuantity()), BigDecimal.valueOf(order.getPrice()), new Timestamp(order.getTimestamp().getTime()));
+            // get current price from redis
+            double price = instrumentService.fetchStockInstrumentByName(instrument.getName()).getLastTradedPrice();
+            PortfolioInstrument portfolioInstrument = new PortfolioInstrument(user, instrument, new BigDecimal(order.getQuantity()), BigDecimal.valueOf(price), new Timestamp(order.getTimestamp().getTime()));
             portfolioRepository.save(portfolioInstrument);
         } catch (Exception e) {
             throw new RuntimeException(e);

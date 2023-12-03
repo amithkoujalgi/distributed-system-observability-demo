@@ -1,9 +1,9 @@
 package io.github.amithkoujalgi.demo.config;
 
-import io.github.amithkoujalgi.demo.repositories.InstrumentsAPI;
-import io.github.amithkoujalgi.demo.repositories.TradeAPI;
-import io.github.amithkoujalgi.demo.repositories.impl.InstrumentsAPIImpl;
-import io.github.amithkoujalgi.demo.repositories.impl.TradeAPIImpl;
+import io.github.amithkoujalgi.demo.services.InstrumentService;
+import io.github.amithkoujalgi.demo.services.TradeService;
+import io.github.amithkoujalgi.demo.services.impl.InstrumentServiceImpl;
+import io.github.amithkoujalgi.demo.services.impl.TradeServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Configuration
 public class RepoConfig {
     @Bean
-    public InstrumentsAPI instrumentsAPI() {
-        return new InstrumentsAPIImpl();
+    public InstrumentService instrumentsAPI() {
+        return new InstrumentServiceImpl();
     }
 
     @Bean
-    public TradeAPI tradeRepository() {
-        return new TradeAPIImpl();
+    public TradeService tradeRepository() {
+        return new TradeServiceImpl();
     }
 }

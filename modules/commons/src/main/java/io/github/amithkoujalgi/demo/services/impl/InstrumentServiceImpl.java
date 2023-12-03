@@ -1,8 +1,7 @@
-package io.github.amithkoujalgi.demo.repositories.impl;
+package io.github.amithkoujalgi.demo.services.impl;
 
 import io.github.amithkoujalgi.demo.models.http.Instrument;
-import io.github.amithkoujalgi.demo.repositories.InstrumentsAPI;
-import io.micrometer.observation.annotation.Observed;
+import io.github.amithkoujalgi.demo.services.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,9 +12,12 @@ import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class InstrumentsAPIImpl implements InstrumentsAPI {
+public class InstrumentServiceImpl implements InstrumentService {
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Value("${infrastructure.redis.keys.stocks}")
+    private String redisHashKeyPrefixStocks;
 
     @Value("${infrastructure.redis.keys.stocks}")
     private String stocksKeyname;
@@ -55,5 +57,10 @@ public class InstrumentsAPIImpl implements InstrumentsAPI {
             }
         }
         return matchedInstruments;
+    }
+
+    @Override
+    public void addStockInstrument(Instrument instrument) {
+        redisTemplate.opsForHash().put(redisHashKeyPrefixStocks + ":" + instrument.getName(), "price", instrument.toJSON());
     }
 }
