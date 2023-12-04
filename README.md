@@ -2,9 +2,6 @@
 
 ## [Work in progress]
 
-This project implements a simplified stock market simulation. The simulation involves
-generating random stock price data and simulating trader's actions based on the received stock prices.
-
 ![Java](https://img.shields.io/badge/Java-17-green.svg)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-green.svg)
 ![Postgres](https://img.shields.io/badge/Postgres-blue.svg)
@@ -21,9 +18,11 @@ generating random stock price data and simulating trader's actions based on the 
 
 ## Introduction
 
-The goal of this project is to demonstrate a basic stock market simulation using distributed systems and a message broker for
-communication between the components of the system. The simulation consists of producers generating simulated stock price
-data, and consumers (traders) making buying and selling decisions based on their trading strategies.
+This project is centered around the simulation of a stock market environment through the utilization of distributed systems and a message broker for seamless communication among different components of the system. In this simulation, producers generate synthetic stock price data as well as buy and sell orders, while consumers execute these orders and ensure the system stays up-to-date.
+
+The system offers APIs that allow traders to list their orders, review their portfolio, and create new orders for buying or selling. Additionally, it provides APIs for accessing information on available stock instruments, including their last traded price and more.
+
+As part of its design, the system incorporates observability features, enabling the tracking of various aspects within the system. This enhances transparency and facilitates in-depth analysis of its functioning.
 
 _Please note that this simulation is a simplified version and might not represent real-world trading conditions or all
 aspects of a complex stock market._
