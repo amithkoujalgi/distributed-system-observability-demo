@@ -1,0 +1,3 @@
+API Gateway
+
+Using Spring Boot: ${spring-boot.version}

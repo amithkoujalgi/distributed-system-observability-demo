@@ -167,6 +167,15 @@ services:
     ports:
       - 3100:3100
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.1
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    command: [ 'start-dev' ]
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - 9000:8080
 volumes:
   postgres:
   postgres-ui:

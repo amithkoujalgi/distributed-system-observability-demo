@@ -1,0 +1,94 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
+  instance:
+    instanceId: ${spring.application.name}-${random.uuid}
+    preferIpAddress: true
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**
+logging:
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: false
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+management:
+  endpoint:
+    configprops:
+      show-values: ALWAYS
+    env:
+      show-values: ALWAYS
+    health:
+      show-details: ALWAYS
+    metrics:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          client:
+            requests: true
+          requests: true
+          server:
+            requests: true
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  observations:
+    key-values:
+      application: ${spring.application.name}
+  tracing:
+    enabled: false
+    sampling:
+      probability: 1.0
+server:
+  port: 9910
+spring:
+  application:
+    name: api-gateway
+  boot:
+    admin:
+      client:
+        url: http://localhost:9800
+  cloud:
+    gateway:
+      routes:
+        - id: ticker-service
+          predicates:
+            - Path=/api/ticker/**
+          uri: lb://TICKER-SERVICE
+        - id: order-service
+          predicates:
+            - Path=/api/order/**
+          uri: lb://ORDER-SERVICE
+        - id: identity-service
+          predicates:
+            - Path=/api/auth/**
+          uri: lb://AUTH-SERVICE
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000/realms/master
+springdoc:
+  swagger-ui:
+    path: /docs
+    tryItOutEnabled: true

@@ -62,6 +62,7 @@
     <modules>
         <module>modules/commons</module>
         <module>modules/service-registry</module>
+        <module>modules/api-gateway</module>
         <module>modules/spring-admin</module>
         <module>modules/auth-service</module>
         <module>modules/ticker-service</module>
