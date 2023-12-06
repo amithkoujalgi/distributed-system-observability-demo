@@ -59,6 +59,12 @@ management:
 server:
   port: 9910
 spring:
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
   application:
     name: api-gateway
   boot:
@@ -70,7 +76,7 @@ spring:
       routes:
         - id: ticker-service
           predicates:
-            - Path=/api/ticker/**
+            - Path=/api/instrument/**
           uri: lb://TICKER-SERVICE
         - id: order-service
           predicates:
@@ -87,8 +93,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9000/realms/master
+          issuer-uri: http://localhost:9000/realms/myapp
 springdoc:
   swagger-ui:
     path: /docs
     tryItOutEnabled: true
+

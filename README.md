@@ -18,11 +18,17 @@
 
 ## Introduction
 
-This project is centered around the simulation of a stock market environment through the utilization of distributed systems and a message broker for seamless communication among different components of the system. In this simulation, producers generate synthetic stock price data as well as buy and sell orders, while consumers execute these orders and ensure the system stays up-to-date.
+This project is centered around the simulation of a stock market environment through the utilization of distributed
+systems and a message broker for seamless communication among different components of the system. In this simulation,
+producers generate synthetic stock price data as well as buy and sell orders, while consumers execute these orders and
+ensure the system stays up-to-date.
 
-The system offers APIs that allow traders to list their orders, review their portfolio, and create new orders for buying or selling. Additionally, it provides APIs for accessing information on available stock instruments, including their last traded price and more.
+The system offers APIs that allow traders to list their orders, review their portfolio, and create new orders for buying
+or selling. Additionally, it provides APIs for accessing information on available stock instruments, including their
+last traded price and more.
 
-As part of its design, the system incorporates observability features, enabling the tracking of various aspects within the system. This enhances transparency and facilitates in-depth analysis of its functioning.
+As part of its design, the system incorporates observability features, enabling the tracking of various aspects within
+the system. This enhances transparency and facilitates in-depth analysis of its functioning.
 
 _Please note that this simulation is a simplified version and might not represent real-world trading conditions or all
 aspects of a complex stock market._
@@ -62,6 +68,7 @@ With all services up, access:
 | Kafka UI                | http://localhost:8080      |                                          |
 | Redis UI                | http://localhost:8050      |                                          |
 | Grafana UI              | http://localhost:3000      |                                          |
+| Keycloak                | http://localhost:9000      |                                          |
 | Eureka Service Registry | http://localhost:9900      |                                          |
 | Spring Boot Admin       | http://localhost:9800      |                                          |
 | Auth Service            | http://localhost:9901/docs |                                          |
@@ -84,6 +91,36 @@ Stop docker containers:
 
 ```shell
 make stop-docker
+```
+
+Design:
+
+```mermaid
+  flowchart LR
+    script[Script]
+    as[Auth Server]
+    ts[Ticker Server]
+    os[Order Server]
+    r[Redis]
+    db[Database]
+    k[Kafka]
+    p[Producer]
+    c[Consumer]
+    script -->|Calls API| ts;
+    script -->|Calls API| os;
+    ts --> as;
+    os --> as;
+    r --> ts;
+    os --> k
+    ts --> db;
+    os --> db;
+    p -->|Generate synthetic Orders| k;
+    k -->|Consumes Orders| c;
+    r -->|Instrument price lookup| c;
+%%    subgraph Ollama Deployment
+%%        direction TB
+%%        os -->|Manages| m
+%%    end
 ```
 
 ### Images

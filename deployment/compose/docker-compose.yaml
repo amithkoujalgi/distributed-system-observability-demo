@@ -165,23 +165,31 @@ services:
     volumes:
       - ./config/loki/config.yaml:/etc/loki/local-config.yaml:ro
     ports:
-      - 3100:3100
+      - "3100:3100"
 
   keycloak:
     image: quay.io/keycloak/keycloak:23.0.1
     extra_hosts: [ 'host.docker.internal:host-gateway' ]
-    command: [ 'start-dev' ]
+    command: '-v start-dev --import-realm --optimized'
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KEYCLOAK_IMPORT="/opt/jboss/keycloak/imports/realm-export.json -Dkeycloak.profile.feature.upload_scripts=enabled"
+    volumes:
+      - ./config/keycloak/realm-imports:/opt/keycloak/data/import:ro
     ports:
-      - 9000:8080
+      - "9000:8080"
+
 volumes:
   postgres:
+  #    driver: local
   postgres-ui:
+  #    driver: local
   redis-svc:
+  #    driver: local
   redis-ui:
+  #    driver: local
   prometheus:
-#    driver: local
+  #    driver: local
   tempo:
-#    driver: local
+  #    driver: local

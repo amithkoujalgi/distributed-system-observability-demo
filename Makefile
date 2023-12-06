@@ -33,4 +33,5 @@ stop-apps:
 	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill -9; \
+	jps | grep APIGatewayApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill -9;
