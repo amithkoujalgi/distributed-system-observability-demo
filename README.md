@@ -74,6 +74,7 @@ With all services up, access:
 | Auth Service            | http://localhost:9901/docs |                                          |
 | Ticker Service          | http://localhost:9902/docs |                                          |
 | Order Service           | http://localhost:9903/docs |                                          |
+| App UI                  | http://localhost:9910      | U: `test`<br/>P: `test`                  |
 
 Generate traffic:
 
