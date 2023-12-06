@@ -3,16 +3,17 @@ package io.github.amithkoujalgi.demo.models.http;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class Instrument {
     private String name;
     private Date timestamp;
     private Double lastTradedPrice;
     private String trend;
+
     public Instrument() {
     }
 
@@ -108,7 +109,7 @@ public class Instrument {
         }
         String name = getRandomInstrument(instrumentNames);
         Date timestamp = new Date();
-        Double lastTradedPrice = 10.0 + Math.random() * (100.0 - 10.0);
+        Double lastTradedPrice = Math.round(10.0 + Math.random() * (100.0 - 10.0) * 100.0) / 100.0;
         String trend = getRandomTrend();
         return new Instrument(name, timestamp, lastTradedPrice, trend);
     }
