@@ -131,7 +131,7 @@ function get_ticker_data() {
 
         for (const [key, value] of Object.entries(json)) {
             let ticker_symbol = value.name
-            let ticker_value = value.lastTradedPrice
+            let ticker_value = parseFloat(value.lastTradedPrice).toFixed(2);
             let ticker_trend = value.trend.toLowerCase();
             $('.ticker-items').append(`<li id="stock-${ticker_symbol}" class="nav-item menu-item"><a href="#" class="nav-link ticker-trend-${ticker_trend}">${ticker_symbol}: ${ticker_value}</a><li>`)
         }
