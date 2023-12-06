@@ -51,6 +51,8 @@
         <spring-boot-admin-starter-client.version>3.1.8</spring-boot-admin-starter-client.version>
         <logback-classic.version>1.4.11</logback-classic.version>
         <spring-boot-starter-thymeleaf.version>3.2.0</spring-boot-starter-thymeleaf.version>
+        <keycloak-admin-client.version>23.0.1</keycloak-admin-client.version>
+        <java-jwt.version>4.4.0</java-jwt.version>
     </properties>
 
     <parent>
@@ -252,6 +254,16 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot-admin-starter-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-admin-client</artifactId>
+                <version>${keycloak-admin-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
