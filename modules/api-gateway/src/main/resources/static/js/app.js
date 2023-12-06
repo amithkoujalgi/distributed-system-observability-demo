@@ -115,7 +115,6 @@ function get_ticker_data() {
     fetch(url, {
         "headers": {
             "Authorization": `Bearer ${window.keycloak.token}`,
-            "access-token": "c96cf9ae-a0ce-40ba-91b8-8a636a38a87d",
             "accept": "*/*", "sec-fetch-site": "same-origin", "sec-fetch-dest": "empty", "sec-gpc": "1",
         },
         "body": null,
