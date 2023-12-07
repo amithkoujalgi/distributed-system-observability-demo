@@ -35,7 +35,11 @@ public class KeycloakService {
         }
     }
 
-    public String getUserIDFromJWT(String jwt) {
+    private String getUserIDFromJWT(String jwt) {
         return JWT.decode(jwt).getClaims().get("sub").asString();
+    }
+
+    public UserRepresentation getUserFromJWT(String realmName, String jwt){
+        return getUserByUserID(realmName, getUserIDFromJWT(jwt));
     }
 }
