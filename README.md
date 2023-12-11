@@ -38,6 +38,7 @@ aspects of a complex stock market._
 - [Docker](https://www.docker.com/products/docker-desktop/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [httpie](https://httpie.io/)
+- [make](https://formulae.brew.sh/formula/make)
 
 ## Build
 
