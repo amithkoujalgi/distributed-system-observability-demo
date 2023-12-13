@@ -119,10 +119,6 @@ Design:
     p -->|Generate synthetic Orders| k;
     k -->|Consumes Orders| c;
     r -->|Instrument price lookup| c;
-%%    subgraph Ollama Deployment
-%%        direction TB
-%%        os -->|Manages| m
-%%    end
 ```
 
 ### Images
