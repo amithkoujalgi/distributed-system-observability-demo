@@ -10,9 +10,9 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>distributed-processing-demo-app-service</artifactId>
-    <name>Distributed Processing Demo App Service</name>
-    <description>Distributed Processing Demo App Service</description>
+    <artifactId>distributed-processing-demo-ticker-service</artifactId>
+    <name>Distributed Processing Demo Ticker Service</name>
+    <description>Distributed Processing Demo Ticker Service</description>
     <packaging>jar</packaging>
 
     <dependencies>
