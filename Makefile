@@ -35,3 +35,6 @@ stop-apps:
 	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep APIGatewayApplication | cut -d' ' -f1 | xargs kill -9; \
 	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill -9;
+
+build:
+	mvn clean install

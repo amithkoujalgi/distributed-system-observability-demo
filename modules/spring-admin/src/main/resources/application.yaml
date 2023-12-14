@@ -1,3 +1,7 @@
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**
 logging:
   file:
     name: ${spring.application.home:.}/logs/${spring.application.name}.log
@@ -5,9 +9,9 @@ logging:
     com.netflix.discovery: false
 management:
   endpoint:
-    env:
-      show-values: ALWAYS
     configprops:
+      show-values: ALWAYS
+    env:
       show-values: ALWAYS
     health:
       show-details: ALWAYS
@@ -64,8 +68,3 @@ spring:
 spring.cloud.discovery.client:
   composite-indicator:
     enabled: false
-
-logbook:
-  predicate:
-    exclude[0]:
-      path: /actuator/**

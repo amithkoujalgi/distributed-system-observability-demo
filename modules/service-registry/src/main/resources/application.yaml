@@ -60,7 +60,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:9800
+        url: ${SPRING_ADMIN_HOST:http://localhost:9800}
   datasource:
     driver-class-name: org.h2.Driver
     password: password

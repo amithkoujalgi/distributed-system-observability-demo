@@ -151,13 +151,6 @@ services:
       - 3200:3200    # tempo
       - 9411:9411    # zipkin
 
-
-  #  zipkin-svc:
-  #    image: openzipkin/zipkin
-  #    hostname: zipkin-svc
-  #    ports:
-  #      - "9411:9411"
-
   loki:
     image: grafana/loki
     extra_hosts: [ 'host.docker.internal:host-gateway' ]
@@ -179,6 +172,44 @@ services:
       - ./config/keycloak/realm-imports:/opt/keycloak/data/import:ro
     ports:
       - "9000:8080"
+
+  spring-admin-service:
+    build:
+      context: ./
+      dockerfile: Java.Dockerfile
+    platform: linux/amd64
+    image: java-17-mvn:1.0.0
+    ports:
+      - "9800:9800"
+    volumes:
+      - ../../modules/spring-admin/target/:/app/
+    command: 'java -jar /app/distributed-processing-demo-spring-admin-1.0-SNAPSHOT.jar'
+    environment:
+      LOKI_HOST: 'http://loki:3100'
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
+    depends_on:
+      - postgres
+
+  service-registry:
+    build:
+      context: ./
+      dockerfile: Java.Dockerfile
+    platform: linux/amd64
+    image: java-17-mvn:1.0.0
+    ports:
+      - "9900:9900"
+    volumes:
+      - ../../modules/service-registry/target/:/app/
+    command: 'java -jar /app/distributed-processing-demo-service-registry-1.0-SNAPSHOT.jar'
+    environment:
+      LOKI_HOST: 'http://loki:3100'
+      SPRING_ADMIN_HOST: 'http://spring-admin-service:9800'
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
+    depends_on:
+      - postgres
+      - spring-admin-service
 
 volumes:
   postgres:
