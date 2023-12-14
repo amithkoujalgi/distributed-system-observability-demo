@@ -226,6 +226,7 @@ services:
     environment:
       LOKI_HOST: 'http://loki:3100'
       TRACER_HOST: 'http://tempo:9411'
+      KEYCLOAK_HOST: 'http://keycoak:9000'
       EUREKA_URI: 'http://service-registry:9900/eureka'
       SPRING_ADMIN_HOST: 'http://spring-admin-service:9800'
       SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'

@@ -93,7 +93,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9000/realms/myapp
+          issuer-uri: ${KEYCLOAK_HOST:http://localhost:9000}/realms/myapp
 springdoc:
   swagger-ui:
     path: /docs
