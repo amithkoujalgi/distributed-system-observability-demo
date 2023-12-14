@@ -226,12 +226,14 @@ services:
     environment:
       LOKI_HOST: 'http://loki:3100'
       TRACER_HOST: 'http://tempo:9411'
+      EUREKA_URI: 'http://service-registry:9900/eureka'
       SPRING_ADMIN_HOST: 'http://spring-admin-service:9800'
       SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
       SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
     depends_on:
       - postgres
       - spring-admin-service
+      - service-registry
 
 volumes:
   postgres:
