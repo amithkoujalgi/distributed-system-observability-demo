@@ -35,3 +35,4 @@ replay_pid*
 !deployment/compose/config/kafka/jolokia-jvm-1.7.2.jar
 *.gz
 **/*.gz
+.vscode/settings.json
