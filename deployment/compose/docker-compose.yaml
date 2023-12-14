@@ -301,7 +301,7 @@ services:
       - "9902:9902"
     volumes:
       - ../../modules/ticker-service/target/:/app/
-    command: 'java -jar /app/distributed-processing-demo-ticker-service-1.0-SNAPSHOT.jar'
+    command: 'java -jar /app/distributed-processing-demo-app-service-1.0-SNAPSHOT.jar'
     environment:
       LOKI_HOST: 'http://loki:3100'
       TRACER_HOST: 'http://tempo:9411'
