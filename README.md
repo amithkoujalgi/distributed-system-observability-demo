@@ -151,7 +151,8 @@ Sample Trace:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace.png"/>
 
 Sample Logs for a Trace:
-<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace.png"/>
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-system-observability-demo/main/images/trace-logs.png"/>
+
 
 Service Graph for a Trace:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace-node-graph.png"/>
