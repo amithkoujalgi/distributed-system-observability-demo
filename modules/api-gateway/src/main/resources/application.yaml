@@ -48,7 +48,7 @@ management:
           server:
             requests: true
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: ${TRACER_HOST:http://localhost:9411}/api/v2/spans
   observations:
     key-values:
       application: ${spring.application.name}
@@ -70,7 +70,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:9800
+        url: ${SPRING_ADMIN_HOST:http://localhost:9800}
   cloud:
     gateway:
       routes:
