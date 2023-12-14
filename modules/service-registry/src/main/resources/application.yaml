@@ -9,15 +9,27 @@ eureka:
     enableSelfPreservation: false
     max-threads-for-peer-replication: 0
     wait-time-in-ms-when-sync-empty: 0
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**
+logging:
+  file:
+    name: ${spring.application.home:.}/logs/${spring.application.name}.log
+  level:
+    com.netflix.discovery: false
 management:
   endpoint:
-    env:
-      show-values: ALWAYS
     configprops:
+      show-values: ALWAYS
+    env:
       show-values: ALWAYS
     health:
       show-details: ALWAYS
+    metrics:
+      enabled: true
   endpoints:
+    enabled-by-default: true
     web:
       exposure:
         include: '*'
@@ -32,8 +44,13 @@ management:
     distribution:
       percentiles-histogram:
         http:
+          client:
+            requests: true
+          requests: true
           server:
             requests: true
+        tracing:
+      endpoint: ${TRACER_HOST:http://localhost:9411}/api/v2/spans
     tags:
       application: ${spring.application.name}
       profiles: ${spring.profiles.active}
@@ -45,13 +62,9 @@ management:
       export:
         step: 10s
   tracing:
+    enabled: true
     sampling:
       probability: 1.0
-logging:
-  file:
-    name: ${spring.application.home:.}/logs/${spring.application.name}.log
-  level:
-    com.netflix.discovery: false
 server:
   port: 9900
 spring:
@@ -66,8 +79,3 @@ spring:
     password: password
     url: jdbc:h2:mem:batchjobs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     username: sa
-
-logbook:
-  predicate:
-    exclude[0]:
-      path: /actuator/**
