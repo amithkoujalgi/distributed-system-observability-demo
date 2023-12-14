@@ -326,7 +326,7 @@ services:
     platform: linux/amd64
     image: java-17-mvn:1.0.0
     ports:
-      - "9902:9902"
+      - "9904:9904"
     volumes:
       - ../../modules/producer-service/target/:/app/
     command: 'java -jar /app/distributed-processing-demo-producer-service-1.0-SNAPSHOT.jar'
