@@ -288,6 +288,8 @@ services:
       SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
     depends_on:
       - postgres
+      - kafka-svc
+      - redis-svc
       - spring-admin-service
       - service-registry
 
@@ -316,6 +318,8 @@ services:
       SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
     depends_on:
       - postgres
+      - kafka-svc
+      - redis-svc
       - spring-admin-service
       - service-registry
 
@@ -344,6 +348,8 @@ services:
       SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
     depends_on:
       - postgres
+      - kafka-svc
+      - redis-svc
       - spring-admin-service
       - service-registry
 
@@ -372,6 +378,8 @@ services:
       SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
     depends_on:
       - postgres
+      - kafka-svc
+      - redis-svc
       - spring-admin-service
       - service-registry
 
