@@ -8,12 +8,12 @@ eureka:
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
   redis:
-    host: localhost
+    host: ${INFRA_REDIS_HOST:localhost}
     keys:
       indices: indices
       portfolio: portfolio
       stocks: stocks
-    port: 6379
+    port: ${INFRA_REDIS_PORT:6379}
   services:
     auth:
       host-name: AUTH-SERVICE
@@ -58,7 +58,7 @@ management:
           client:
             requests: true
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: ${TRACER_HOST:http://localhost:9411}/api/v2/spans
   observations:
     key-values:
       application: ${spring.application.name}
@@ -74,7 +74,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:9800
+        url: ${SPRING_ADMIN_HOST:http://localhost:9800}
   datasource:
     driver-class-name: org.postgresql.Driver
     password: root

@@ -263,6 +263,34 @@ services:
       - spring-admin-service
       - service-registry
 
+  order-service:
+    build:
+      context: ./
+      dockerfile: Java.Dockerfile
+    platform: linux/amd64
+    image: java-17-mvn:1.0.0
+    ports:
+      - "9903:9903"
+    volumes:
+      - ../../modules/order-service/target/:/app/
+    command: 'java -jar /app/distributed-processing-demo-order-service-1.0-SNAPSHOT.jar'
+    environment:
+      LOKI_HOST: 'http://loki:3100'
+      TRACER_HOST: 'http://tempo:9411'
+      EUREKA_URI: 'http://service-registry:9900/eureka'
+      SPRING_ADMIN_HOST: 'http://spring-admin-service:9800'
+      INFRA_POSTGRES_HOST: 'postgres'
+      INFRA_POSTGRES_PORT: 5432
+      INFRA_KAFKA_BROKERS: 'kafka-svc:9092'
+      INFRA_REDIS_HOST: 'redis-svc'
+      INFRA_REDIS_PORT: 6379
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
+    depends_on:
+      - postgres
+      - spring-admin-service
+      - service-registry
+
 volumes:
   postgres:
   #    driver: local
