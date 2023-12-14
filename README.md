@@ -150,6 +150,9 @@ Sample Exemplar:
 Sample Trace:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace.png"/>
 
+Sample Logs for a Trace:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace.png"/>
+
 Service Graph for a Trace:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace-node-graph.png"/>
 
