@@ -337,7 +337,7 @@ services:
       SPRING_ADMIN_HOST: 'http://spring-admin-service:9800'
       INFRA_POSTGRES_HOST: 'postgres'
       INFRA_POSTGRES_PORT: 5432
-      INFRA_KAFKA_BROKERS: 'kafka-svc:9092'
+      INFRA_KAFKA_BROKERS: 'kafka-svc:19092'
       INFRA_REDIS_HOST: 'redis-svc'
       INFRA_REDIS_PORT: 6379
       SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
@@ -365,7 +365,7 @@ services:
       SPRING_ADMIN_HOST: 'http://spring-admin-service:9800'
       INFRA_POSTGRES_HOST: 'postgres'
       INFRA_POSTGRES_PORT: 5432
-      INFRA_KAFKA_BROKERS: 'kafka-svc:9092'
+      INFRA_KAFKA_BROKERS: 'kafka-svc:19092'
       INFRA_REDIS_HOST: 'redis-svc'
       INFRA_REDIS_PORT: 6379
       SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
@@ -374,6 +374,7 @@ services:
       - postgres
       - spring-admin-service
       - service-registry
+
 volumes:
   postgres:
   #    driver: local
