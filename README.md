@@ -38,6 +38,7 @@ aspects of a complex stock market._
 - [Docker](https://www.docker.com/products/docker-desktop/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [httpie](https://httpie.io/)
+- [make](https://formulae.brew.sh/formula/make)
 
 ## Build
 
@@ -118,10 +119,6 @@ Design:
     p -->|Generate synthetic Orders| k;
     k -->|Consumes Orders| c;
     r -->|Instrument price lookup| c;
-%%    subgraph Ollama Deployment
-%%        direction TB
-%%        os -->|Manages| m
-%%    end
 ```
 
 ### Images
@@ -152,6 +149,10 @@ Sample Exemplar:
 
 Sample Trace:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace.png"/>
+
+Sample Logs for a Trace:
+<img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-system-observability-demo/main/images/trace-logs.png"/>
+
 
 Service Graph for a Trace:
 <img src="https://raw.githubusercontent.com/amithkoujalgi/distributed-processing-demo/main/images/trace-node-graph.png"/>
