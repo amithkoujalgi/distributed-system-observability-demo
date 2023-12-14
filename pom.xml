@@ -49,7 +49,7 @@
         <spring-cloud-starter-netflix-eureka-client.version>4.0.2</spring-cloud-starter-netflix-eureka-client.version>
         <spring-boot-admin-starter-server.version>3.1.8</spring-boot-admin-starter-server.version>
         <spring-boot-admin-starter-client.version>3.1.8</spring-boot-admin-starter-client.version>
-        <logback-classic.version>1.4.11</logback-classic.version>
+        <logback-classic.version>1.4.12</logback-classic.version>
         <spring-boot-starter-thymeleaf.version>3.2.0</spring-boot-starter-thymeleaf.version>
         <keycloak-admin-client.version>23.0.1</keycloak-admin-client.version>
         <java-jwt.version>4.4.0</java-jwt.version>
