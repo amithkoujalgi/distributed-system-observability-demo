@@ -16,6 +16,8 @@ ARG MAVEN_VERSION=3.9.6
 ARG USER_HOME_DIR="/root"
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
+RUN apt update && apt install -y httpie
+
 WORKDIR /app
 
 ENTRYPOINT ["/bin/bash", "-c", "exec \"$@\"", "--"]
