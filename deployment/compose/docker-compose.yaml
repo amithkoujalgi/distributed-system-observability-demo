@@ -389,7 +389,7 @@ services:
       dockerfile: Java.Dockerfile
     platform: linux/amd64
     image: java-17-mvn:1.0.0
-    command: 'while true; do http GET http://api-gateway:9910/api/instrument/stocks accept:application/json access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; sleep 0.5; http GET http://api-gateway:9910/api/trade/portfolio/1 accept:application/json access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; done'
+    command: 'while true; do http GET http://api-gateway:9910/api/instrument/stocks accept:application/json authorization:test access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; sleep 0.5; http GET http://api-gateway:9910/api/trade/portfolio/1 accept:application/json authorization:test access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; done'
     depends_on:
       - postgres
       - kafka-svc
