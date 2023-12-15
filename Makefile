@@ -1,3 +1,6 @@
+build:
+	mvn clean install
+
 traffic:
 	while true; do \
 		http GET http://localhost:9902/api/instrument/stocks \
@@ -10,31 +13,30 @@ traffic:
 	done \
 
 start-docker:
+	docker-compose -f ./deployment/compose/docker-compose.yaml down -v; \
+    docker-compose -f ./deployment/compose/docker-compose.yaml rm -fsv; \
 	docker-compose -f ./deployment/compose/docker-compose.yaml up --remove-orphans;
 
 stop-docker:
 	docker-compose -f ./deployment/compose/docker-compose.yaml down -v; \
     docker-compose -f ./deployment/compose/docker-compose.yaml rm -fsv;
-
-start-apps:
-	mvn -f modules/spring-admin/pom.xml spring-boot:run & \
-	mvn -f modules/service-registry/pom.xml spring-boot:run & \
-	sleep 20; \
-	mvn -f modules/auth-service/pom.xml spring-boot:run & \
-	mvn -f modules/order-service/pom.xml spring-boot:run & \
-	mvn -f modules/ticker-service/pom.xml spring-boot:run & \
-	mvn -f modules/producer-service/pom.xml spring-boot:run & \
-	mvn -f modules/consumer/pom.xml spring-boot:run &
-
-stop-apps:
-	jps | grep ConsumerCLIRunner | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep ProducerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep TickerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep APIGatewayApplication | cut -d' ' -f1 | xargs kill -9; \
-	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill -9;
-
-build:
-	mvn clean install
+#
+#start-apps:
+#	mvn -f modules/spring-admin/pom.xml spring-boot:run & \
+#	mvn -f modules/service-registry/pom.xml spring-boot:run & \
+#	sleep 20; \
+#	mvn -f modules/auth-service/pom.xml spring-boot:run & \
+#	mvn -f modules/order-service/pom.xml spring-boot:run & \
+#	mvn -f modules/ticker-service/pom.xml spring-boot:run & \
+#	mvn -f modules/producer-service/pom.xml spring-boot:run & \
+#	mvn -f modules/consumer/pom.xml spring-boot:run &
+#
+#stop-apps:
+#	jps | grep ConsumerCLIRunner | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep ProducerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep TickerServiceApplication | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep OrderServiceApplication | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep EurekaServerApplication | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep SpringAdminApplication | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep APIGatewayApplication | cut -d' ' -f1 | xargs kill -9; \
+#	jps | grep AuthServiceApplication | cut -d' ' -f1 | xargs kill -9;

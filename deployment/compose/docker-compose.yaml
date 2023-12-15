@@ -10,6 +10,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: "2181"
       ZOOKEEPER_SERVER_ID: "1"
       ZOOKEEPER_SERVERS: "server.1=zk-svc:2888:3888"
+    restart: unless-stopped
 
   kafka-svc:
     image: confluentinc/cp-kafka:7.3.2
@@ -43,6 +44,7 @@ services:
       - ./config/kafka/kafka_broker.yml:/usr/share/jmx-exporter/kafka_broker.yml
     depends_on:
       - zk-svc
+    restart: unless-stopped
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -53,6 +55,7 @@ services:
       KAFKA_CLUSTERS_0_NAME: 'Local K8 Kafka Cluster'
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: 'kafka-svc:19092'
       AUTH_TYPE: 'DISABLED'
+    restart: unless-stopped
 
   redis-svc:
     image: redis
@@ -70,14 +73,14 @@ services:
       - "8050:8050"
     restart: unless-stopped
 
-  nginx-svc:
-    image: nginx
-    hostname: nginx-svc
-    ports:
-      - "80:80"
-    volumes:
-      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
-  #      - ../../ui/static-content:/usr/share/nginx/html
+#  nginx-svc:
+#    image: nginx
+#    hostname: nginx-svc
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+#  #      - ../../ui/static-content:/usr/share/nginx/html
 
   postgres:
     image: postgres
@@ -122,6 +125,7 @@ services:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
       - 9090:9090
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
@@ -150,6 +154,7 @@ services:
     ports:
       - 3200:3200    # tempo
       - 9411:9411    # zipkin
+    restart: unless-stopped
 
   loki:
     image: grafana/loki
@@ -159,6 +164,7 @@ services:
       - ./config/loki/config.yaml:/etc/loki/local-config.yaml:ro
     ports:
       - "3100:3100"
+    restart: unless-stopped
 
   keycloak:
     image: quay.io/keycloak/keycloak:23.0.1
@@ -172,6 +178,7 @@ services:
       - ./config/keycloak/realm-imports:/opt/keycloak/data/import:ro
     ports:
       - "9000:8080"
+    restart: unless-stopped
 
   spring-admin-service:
     build:
@@ -190,6 +197,7 @@ services:
       SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 20
     depends_on:
       - postgres
+    restart: unless-stopped
 
   service-registry:
     build:
@@ -211,6 +219,7 @@ services:
     depends_on:
       - postgres
       - spring-admin-service
+    restart: unless-stopped
 
   api-gateway:
     build:
@@ -235,6 +244,7 @@ services:
       - postgres
       - spring-admin-service
       - service-registry
+    restart: unless-stopped
 
   auth-service:
     build:
@@ -263,6 +273,7 @@ services:
       - postgres
       - spring-admin-service
       - service-registry
+    restart: unless-stopped
 
   order-service:
     build:
@@ -293,6 +304,7 @@ services:
       - redis-svc
       - spring-admin-service
       - service-registry
+    restart: unless-stopped
 
   ticker-service:
     build:
@@ -323,6 +335,7 @@ services:
       - redis-svc
       - spring-admin-service
       - service-registry
+    restart: unless-stopped
 
   producer-service:
     build:
@@ -353,6 +366,7 @@ services:
       - redis-svc
       - spring-admin-service
       - service-registry
+    restart: unless-stopped
 
   consumer:
     build:
@@ -383,6 +397,7 @@ services:
       - redis-svc
       - spring-admin-service
       - service-registry
+    restart: unless-stopped
 
   traffic-gen:
     build:
@@ -390,7 +405,13 @@ services:
       dockerfile: Java.Dockerfile
     platform: linux/amd64
     image: java-17-mvn:1.0.0
-    command: 'while true; do http GET http://api-gateway:9910/api/instrument/stocks accept:application/json authorization:test access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; sleep 0.5; http GET http://api-gateway:9910/api/trade/portfolio/1 accept:application/json authorization:test access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; done'
+    command: >
+      /bin/bash -c "while true; 
+      do 
+        http GET http://ticker-service:9902/api/instrument/stocks accept:application/json authorization:test access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; 
+        sleep 0.5; 
+        http GET http://order-service:9903/api/trade/portfolio/1 accept:application/json authorization:test access-token:c96cf9ae-a0ce-40ba-91b8-8a636a38a87d; 
+      done"
     depends_on:
       - postgres
       - kafka-svc
