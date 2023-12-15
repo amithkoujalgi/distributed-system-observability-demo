@@ -3,8 +3,8 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
   instance:
-    preferIpAddress: true
     instanceId: ${spring.application.name}-${random.uuid}
+    preferIpAddress: true
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
   redis:
@@ -16,6 +16,10 @@ infrastructure:
     port: ${INFRA_REDIS_PORT:6379}
   topics:
     orders-placed: orders
+logbook:
+  predicate:
+    exclude[0]:
+      path: /actuator/**
 logging:
   file:
     name: ${spring.application.home:.}/logs/${spring.application.name}.log
@@ -25,9 +29,9 @@ logging:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 management:
   endpoint:
-    env:
-      show-values: ALWAYS
     configprops:
+      show-values: ALWAYS
+    env:
       show-values: ALWAYS
     health:
       show-details: ALWAYS
@@ -49,10 +53,10 @@ management:
     distribution:
       percentiles-histogram:
         http:
+          client:
+            requests: true
           requests: true
           server:
-            requests: true
-          client:
             requests: true
     tracing:
       endpoint: ${TRACER_HOST:http://localhost:9411}/api/v2/spans
@@ -63,6 +67,9 @@ management:
     enabled: true
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${TRACER_HOST:http://localhost:9411}/api/v2/spans
 server:
   port: 9901
 spring:
@@ -89,7 +96,3 @@ springdoc:
   swagger-ui:
     path: /docs
     tryItOutEnabled: true
-logbook:
-  predicate:
-    exclude[0]:
-      path: /actuator/**

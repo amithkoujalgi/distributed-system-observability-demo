@@ -3,8 +3,8 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:9900/eureka}
   instance:
-    preferIpAddress: true
     instanceId: ${spring.application.name}-${random.uuid}
+    preferIpAddress: true
 infrastructure:
   kafka_brokers: ${INFRA_KAFKA_BROKERS:127.0.0.1:9092}
   redis:
@@ -71,6 +71,9 @@ management:
     enabled: true
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${TRACER_HOST:http://localhost:9411}/api/v2/spans
 producer:
   stock-instruments: GOOGL,AAPL,TSLA,NVDA,AMD,AMZN,INTC,MSFT,UBER,ADBE,CSCO
 server:

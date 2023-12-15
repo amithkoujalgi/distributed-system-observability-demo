@@ -50,8 +50,8 @@
             "type": "loki",
             "uid": "loki"
           },
-          "editorMode": "builder",
-          "expr": "{application=\"spring-admin\"} | logfmt --strict --keep-empty",
+          "editorMode": "code",
+          "expr": "{application=\"spring-admin\"} | logfmt ",
           "maxLines": 10,
           "queryType": "range",
           "refId": "A"
@@ -110,6 +110,45 @@
         "x": 0,
         "y": 16
       },
+      "id": 8,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "builder",
+          "expr": "{application=\"api-gateway\"} | logfmt",
+          "maxLines": 10,
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "API Gateway",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
       "id": 1,
       "options": {
         "dedupStrategy": "none",
@@ -147,7 +186,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 32
       },
       "id": 6,
       "options": {
@@ -186,7 +225,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 40
       },
       "id": 7,
       "options": {
@@ -225,7 +264,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 48
       },
       "id": 2,
       "options": {
@@ -264,7 +303,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 48
+        "y": 56
       },
       "id": 3,
       "options": {
