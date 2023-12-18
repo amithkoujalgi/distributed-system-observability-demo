@@ -165,6 +165,7 @@ Full Service Graph:
 - [ ] Filter by URLs of a selected service/application on `HTTP Stats` Grafana Dashboard
 - [ ] Instrumentation of Redis APIs
 - [ ] Instrumentation of consumer
+- [ ] Traffic via API gateway by applying auth filters
 
 ### References:
 
